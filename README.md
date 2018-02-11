@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jonnymoo/FormBuilder.png)](https://travis-ci.org/jonnymoo/FormBuilder)
+
 # form-builder
 
 > A form builder project
