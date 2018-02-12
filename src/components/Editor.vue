@@ -1,7 +1,8 @@
 <template>
 <div>
   <h1>Form Editor</h1>
-  <button>Text Input</button>
+  <button v-on:click="textInput">Text Input</button>
+  <button :click="textArea">Text Area</button>
 </div>
 </template>
 
@@ -11,6 +12,11 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
+    }
+  },
+  methods: {
+    textInput: function() {
+      alert(this.msg)
     }
   }
 }
