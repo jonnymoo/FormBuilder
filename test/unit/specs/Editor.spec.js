@@ -12,16 +12,33 @@ describe('Editor.vue', () => {
 
   test("when the add text input is clicked I expect a text input to be added to the form", () => {
     // Given an editor
-    const vm = shallow(Editor);
+    const editor = shallow(Editor);
     
     // When the addtext input is clicked
-    const button = vm.find('button', button => {
+    const button = editor.find('button', button => {
       button.text() === "Text Input"
     });
   
     button.element.click();
     // Expect a text input to be added to the form
 
-    expect(1).toEqual(2);
+    expect(editor.vm.formFields.length).toEqual(1);
+    expect(editor.vm.formFields[0].type).toEqual("TextInput");
+  });
+
+  test("when the add text input is clicked I expect a text input editor to be added to the form", () => {
+    // Given an editor
+    const editor = shallow(Editor);
+    
+    // When the addtext input is clicked
+    const button = editor.find('button', button => {
+      button.text() === "Text Input"
+    });
+  
+    button.element.click();
+    // Expect a text input to be added to the form
+
+    expect(editor.vm.formFields.length).toEqual(1);
+    expect(editor.vm.formFields[0].type).toEqual("TextInput");
   });
 })
