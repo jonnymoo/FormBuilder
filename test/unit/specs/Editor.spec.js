@@ -15,9 +15,7 @@ describe('Editor.vue', () => {
     const editor = shallow(Editor);
     
     // When the addtext input is clicked
-    const button = editor.find('button', button => {
-      button.text() === "Text Input"
-    });
+    const button = editor.findAll('button').wrappers.filter( x => x.text() === "Text Input")[0]
   
     button.element.click();
     // Expect a text input to be added to the form
@@ -26,19 +24,17 @@ describe('Editor.vue', () => {
     expect(editor.vm.formFields[0].type).toEqual("TextInput");
   });
 
-  test("when the add text input is clicked I expect a text input editor to be added to the form", () => {
+  test("when the add text area is clicked I expect a text area to be added to the form", () => {
     // Given an editor
     const editor = shallow(Editor);
     
     // When the addtext input is clicked
-    const button = editor.find('button', button => {
-      button.text() === "Text Input"
-    });
+    const button = editor.findAll('button').wrappers.filter( x => x.text() === "Text Area")[0]
   
     button.element.click();
     // Expect a text input to be added to the form
 
     expect(editor.vm.formFields.length).toEqual(1);
-    expect(editor.vm.formFields[0].type).toEqual("TextInput");
+    expect(editor.vm.formFields[0].type).toEqual("TextArea");
   });
 })
