@@ -37,4 +37,5 @@ describe('Editor.vue', () => {
     expect(editor.vm.formFields.length).toEqual(1);
     expect(editor.vm.formFields[0].type).toEqual("TextArea");
   });
+
 })

@@ -12,8 +12,8 @@
       </ul>
       <div class="tab-content" id="editorTabContent">
         <div class="tab-pane fade show active" id="fields" role="tabpanel" aria-labelledby="fields-tab">
-          <button v-on:click="addFormItem('TextInput')">Text Input</button>
-          <button v-on:click="addFormItem('TextArea')">Text Area</button>
+          <button id="text-input" class="btn" v-on:click="addFormItem('TextInput')">Text Input</button>
+          <button id="text-area" class="btn" v-on:click="addFormItem('TextArea')">Text Area</button>
         </div>
         <div class="tab-pane fade" id="properties" role="tabpanel" aria-labelledby="properties-tab">
           <FieldProperties :formFields="formFields"></FieldProperties>
@@ -60,16 +60,28 @@ export default {
     }
   },
   methods: {
+    clearSelected: function () {
+      var i = 0
+      // clear selected
+      for (i = 0; i < this.formFields.length; i++) {
+        this.formFields[i].selected = false
+      }
+    },
+
     addFormItem: (function () {
       // Private vars
       var formFieldsIndex = 0
 
       // Add form field to the list
       return function (type, event) {
+        this.clearSelected()
         this.formFields.push({
           key: formFieldsIndex++,
           type: type,
-          content: null
+          label: "test label",
+          content: null,
+          formElement: null,
+          selected: true
         })
       }
     })()

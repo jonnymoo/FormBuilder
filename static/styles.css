@@ -1,0 +1,5 @@
+.selected {
+    background-color: #f1f9ff; 
+    border-radius: 5px 0 0 5px;
+    padding: 10px;
+}
