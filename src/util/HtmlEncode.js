@@ -5,7 +5,5 @@ export default function (s) {
 
   var div = document.createElement('div')
   div.textContent = '' + s
-  var ret = div.innerHTML
-  div.remove()
-  return ret
+  return div.innerHTML
 }

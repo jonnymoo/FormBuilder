@@ -6,7 +6,7 @@ export default {
   props: ['formField', 'editor'],
   computed: {
     formElement: function () {
-      if (this.formField !== undefined){
+      if (this.formField !== undefined) {
         return `<div class="form-group">
         <label for="${htmlEncode(this.formField.name)}">${htmlEncode(this.formField.label)}</label>
         <textarea id="${htmlEncode(this.formField.name)}" 
