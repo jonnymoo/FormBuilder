@@ -16,7 +16,7 @@
           <button id="text-area" class="btn" v-on:click="addFormItem('TextArea')">Text Area</button>
         </div>
         <div class="tab-pane fade" id="properties" role="tabpanel" aria-labelledby="properties-tab">
-          <FieldProperties :formFields="formFields"></FieldProperties>
+          <FieldProperties :formFields="formFields" :editor="this"></FieldProperties>
         </div>
       </div>
     </div>
@@ -31,7 +31,7 @@
       </ul>
       <div class="tab-content" id="previewTabContent">
         <div class="tab-pane fade show active" id="fields-editor" role="tabpanel" aria-labelledby="fields-editor-tab">
-          <FieldsEditor :formFields="formFields"></FieldsEditor>
+          <FieldsEditor :editor="this"></FieldsEditor>
         </div>
         <div class="tab-pane fade" id="preview" role="tabpanel" aria-labelledby="preview-tab">
           <FormPreview :formFields="formFields"></FormPreview>
@@ -43,48 +43,7 @@
 </template>
 
 <script>
-import FieldProperties from '@/components/FieldProperties'
-import FieldsEditor from '@/components/FieldsEditor'
-import FormPreview from '@/components/FormPreview'
-
-export default {
-  name: 'Editor',
-  components: {
-    FieldProperties,
-    FieldsEditor,
-    FormPreview
-  },
-  data () {
-    return {
-      formFields: []
-    }
-  },
-  methods: {
-    clearSelected: function () {
-      var i = 0
-      // clear selected
-      for (i = 0; i < this.formFields.length; i++) {
-        this.formFields[i].selected = false
-      }
-    },
-
-    addFormItem: (function () {
-      // Private vars
-      var formFieldsIndex = 0
-
-      // Add form field to the list
-      return function (type, event) {
-        this.clearSelected()
-        this.formFields.push({
-          key: formFieldsIndex++,
-          type: type,
-          label: "test label",
-          content: null,
-          formElement: null,
-          selected: true
-        })
-      }
-    })()
-  }
-}
+// Moved the script bit into it's own EditorScript.js - just so the debugger will attach
+import EditorScript from '@/components/EditorScript'
+export default EditorScript
 </script>

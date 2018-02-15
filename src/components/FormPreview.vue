@@ -8,7 +8,7 @@ export default {
   components: {
   },
   name: 'FormPreview',
-  props: ['formFields'],
+  props: ['editor'],
   data () {
     return {
     }

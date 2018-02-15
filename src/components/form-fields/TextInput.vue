@@ -16,27 +16,6 @@
 </template>
 
 <script>
-export default {
-  name: 'TextInput',
-  props: ['formField'],
-  computed: {
-    formElement: function () {
-      return 'label' + this.formField.label
-    }
-  },
-  watch: {
-    formElement: {
-      immediate: true,
-      handler (val) {
-        this.formField.formElement = val
-      }
-    }
-  },
-  data () {
-    return {
-    }
-  },
-  methods: {
-  }
-}
+import TextInputScript from '@/components/form-fields/TextInputScript'
+export default TextInputScript
 </script>

@@ -17,7 +17,20 @@
             "internalConsoleOptions": "openOnSessionStart",
             "outFiles": [
                 "${workspaceRoot}/dist/**/*"
-            ]
+            ],
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/*",
+            }
+
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "vuejs: chrome",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}/src",
+            "breakOnLoad": true,
+            "sourceMaps":true            
         }
     ]
 }
