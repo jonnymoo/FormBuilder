@@ -10,4 +10,15 @@ describe('TextInput', () => {
       .toEqual("FORM")
   });
 
+  test("I expect it to have a text area", () => {
+    // Given a text input
+    var formField = {}
+    const wrapper = shallow(TextArea, {
+      propsData: { formField }
+    })
+   
+    expect(formField.formElement).toContain('<textarea');
+  });
+
+
 })
