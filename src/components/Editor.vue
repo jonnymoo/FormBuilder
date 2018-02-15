@@ -34,7 +34,7 @@
           <FieldsEditor :editor="this"></FieldsEditor>
         </div>
         <div class="tab-pane fade" id="preview" role="tabpanel" aria-labelledby="preview-tab">
-          <FormPreview :formFields="formFields"></FormPreview>
+          <FormPreview :editor="this"></FormPreview>
         </div>
       </div>
     </div>

@@ -1,19 +1,10 @@
 <template>
-<iframe></iframe>
+<iframe :srcdoc="preview">
+</iframe>
 </template>
 
 <script>
-
-export default {
-  components: {
-  },
-  name: 'FormPreview',
-  props: ['editor'],
-  data () {
-    return {
-    }
-  },
-  methods: {
-  }
-}
+// Moved the script bit into it's own FormPreviewScript.js - just so the debugger will attach
+import FormPreviewScript from '@/components/FormPreviewScript'
+export default FormPreviewScript
 </script>
