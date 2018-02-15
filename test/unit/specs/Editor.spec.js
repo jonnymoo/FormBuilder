@@ -38,4 +38,51 @@ describe('Editor.vue', () => {
     expect(editor.vm.formFields[0].type).toEqual("TextArea");
   });
 
+  test("when I add a row I expect it to be selected", () => {
+    // Given an editor
+    const editor = shallow(Editor);
+    
+    // When the addtext input is clicked
+    const button = editor.findAll('button').wrappers.filter( x => x.text() === "Text Area")[0]
+  
+    button.element.click();
+    // Expect a text input to be added to the form
+
+    expect(editor.vm.formFields.length).toEqual(1);
+    expect(editor.vm.formFields[0].selected).toEqual(true);
+  });
+
+  test("when I add two rows I expect the last one to be selected", () => {
+    // Given an editor
+    const editor = shallow(Editor);
+    
+    // When the addtext input is clicked twice
+    const button = editor.findAll('button').wrappers.filter( x => x.text() === "Text Area")[0]
+  
+    button.element.click();
+    button.element.click();
+    // Expect last text input to be selected
+    expect(editor.vm.formFields.length).toEqual(2);
+    expect(editor.vm.formFields[0].selected).toEqual(false);
+    expect(editor.vm.formFields[1].selected).toEqual(true);
+  });
+  
+  test("when I clear selected I expect nothing to be selected", () => {
+    // Given an editor
+    const editor = shallow(Editor);
+    
+    // When the addtext input is clicked twice and clear selected
+    const button = editor.findAll('button').wrappers.filter( x => x.text() === "Text Area")[0]
+  
+    button.element.click();
+    button.element.click();
+    editor.vm.clearSelected();
+
+    // Expect none to be selected
+
+    expect(editor.vm.formFields.length).toEqual(2);
+    expect(editor.vm.formFields[0].selected).toEqual(false);
+    expect(editor.vm.formFields[1].selected).toEqual(false);
+  });
+
 })
