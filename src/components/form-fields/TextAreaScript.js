@@ -1,5 +1,4 @@
 import htmlEncode from '@/util/HtmlEncode'
-import defaultValue from '@/util/DefaultValue'
 
 export default {
   name: 'TextArea',
@@ -22,10 +21,6 @@ export default {
     formElement: {
       immediate: true,
       handler (val) {
-        // Defaults
-        this.formField.cols = defaultValue(this.formField.cols, 40)
-        this.formField.rows = defaultValue(this.formField.rows, 5)
-
         // Put the control html onto the formField
         this.formField.formElement = val
       }

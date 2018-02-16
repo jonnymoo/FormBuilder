@@ -51,15 +51,27 @@ export default {
       // Private index variable
       var formFieldsIndex = 0
 
-      // Add form field to the list
+      // Add form field to the list - you need to specify all the properties here so they get bound properly
       return function (type, event) {
-        this.formFields.push({
+        var field = {
           key: formFieldsIndex++,
           type: type,
+          name: null,
+          label: null,
+          placeHolder: null,
           content: null,
           formElement: null,
           selected: true
-        })
+        }
+
+        // Set the specific defaults per field type - this need to be moved into the view components as an export somehow
+        if (type === 'TextArea') {
+          field.cols = 40
+          field.rows = 5
+        }
+
+        // Add the field to the list of fields
+        this.formFields.push(field)
         this.selectField(this.formFields.length - 1)
       }
     })()

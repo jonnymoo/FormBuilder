@@ -1,6 +1,6 @@
 // Html encode a string
 export default function (s) {
-  if (s === undefined) {
+  if (s === undefined || s === null) {
     return ''
   }
 

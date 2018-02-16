@@ -5,6 +5,10 @@ describe('Given an input', () => {
     expect(HtmlEncode()).toEqual('')
   });
 
+  test('when it is null I expect a blank string', () => {
+    expect(HtmlEncode(null)).toEqual('')
+  });
+
   test('when it contains html element I expect them to be encoded', () => {
     expect(HtmlEncode('<mytest>')).toEqual('&lt;mytest&gt;')
   })
