@@ -1,9 +1,9 @@
 <template>
   <draggable v-model="editor.formFields">
-    <div v-for="(field, index) in editor.formFields" 
-        :key="field.key" 
-        v-bind:class="{ selected: field.selected }" 
-        tabindex="0" 
+    <div v-for="(field, index) in editor.formFields"
+        :key="field.key"
+        v-bind:class="{ selected: field.selected }"
+        tabindex="0"
         class="editor-field"
         v-on:focus="editor.clearSelected(); field.selected = true">
       <div class="editor-buttons">

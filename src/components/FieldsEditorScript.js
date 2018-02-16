@@ -11,15 +11,15 @@ export default {
   },
   methods: {
     deleteItem: function (index) {
-      this.editor.formFields.splice(index,1)
+      this.editor.formFields.splice(index, 1)
     },
     moveUp: function (index) {
       var item = this.editor.formFields[index]
       this.editor.formFields.splice(index, 1)
-      this.editor.formFields.splice(index - 1,0,item)
+      this.editor.formFields.splice(index - 1, 0, item)
     },
     moveDown: function (index) {
-      var item = this.editor.formFields[index]  
+      var item = this.editor.formFields[index]
       this.editor.formFields.splice(index, 1)
       this.editor.formFields.splice(index + 1, 0, item)
     }
