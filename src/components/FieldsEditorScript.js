@@ -10,7 +10,7 @@ export default {
     }
   },
   methods: {
-    // Delete item at the given index    
+    // Delete item at the given index
     deleteItem: function (index) {
       this.editor.formFields.splice(index, 1)
     },
