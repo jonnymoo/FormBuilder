@@ -1,3 +1,4 @@
+<!-- Fields editor - draggable ordering and removing fields done here -->
 <template>
   <draggable v-model="editor.formFields">
     <div v-for="(field, index) in editor.formFields"

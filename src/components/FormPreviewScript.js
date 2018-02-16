@@ -4,6 +4,7 @@ export default {
   name: 'FormPreview',
   props: ['editor'],
   computed: {
+    // Returns the html for the form
     preview: function () {
       var i = 0
       var html = `<!doctype html>

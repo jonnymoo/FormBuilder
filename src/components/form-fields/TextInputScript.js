@@ -5,6 +5,7 @@ export default {
   props: ['formField', 'editor'],
   computed: {
     formElement: function () {
+      // Returns the html required for a text input control
       return `<div class="form-group">
         <label for="${htmlEncode(this.formField.name)}">${htmlEncode(this.formField.label)}</label> 
         <input type="text" id="${htmlEncode(this.formField.name)}" 
@@ -18,6 +19,7 @@ export default {
     formElement: {
       immediate: true,
       handler (val) {
+        // Put the control html onto the formField
         this.formField.formElement = val
       }
     }

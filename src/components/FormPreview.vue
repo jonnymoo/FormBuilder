@@ -1,3 +1,4 @@
+<!-- Preview the form - this doesn't work in IE (or edge ... yet) - because of srcdoc - see https://caniuse.com/#feat=iframe-srcdoc -->
 <template>
 <iframe :srcdoc="preview">
 </iframe>

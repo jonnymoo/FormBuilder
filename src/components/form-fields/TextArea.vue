@@ -1,3 +1,4 @@
+<!-- The properties form for a text area -->
 <template>
   <form v-if="formField">
     <div class="form-group">

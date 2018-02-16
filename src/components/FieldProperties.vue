@@ -1,3 +1,4 @@
+<!-- Field properties view - add new ones in here and put a vue file into components / form-fields -->
 <template>
 <div>
     <div v-for="field in formFields" :key="field.key" v-if="field.selected">

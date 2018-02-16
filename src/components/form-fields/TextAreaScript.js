@@ -6,6 +6,7 @@ export default {
   props: ['formField', 'editor'],
   computed: {
     formElement: function () {
+      // Returns the html required for a text area control
       return `<div class="form-group">
       <label for="${htmlEncode(this.formField.name)}">${htmlEncode(this.formField.label)}</label>
       <textarea id="${htmlEncode(this.formField.name)}" 
@@ -25,7 +26,7 @@ export default {
         this.formField.cols = defaultValue(this.formField.cols, 40)
         this.formField.rows = defaultValue(this.formField.rows, 5)
 
-        // Required for return of form element
+        // Put the control html onto the formField
         this.formField.formElement = val
       }
     }

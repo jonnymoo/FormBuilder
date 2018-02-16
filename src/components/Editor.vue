@@ -1,3 +1,4 @@
+<!-- The main page that contains the whole form builder editor -->
 <template>
 <div class="container-fluid">
   <div class="row">

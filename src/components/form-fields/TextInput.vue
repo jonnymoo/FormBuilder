@@ -1,3 +1,4 @@
+<!-- The properties form for a text input -->
 <template>
   <form>
     <div class="form-group">

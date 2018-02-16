@@ -1,3 +1,4 @@
+// Html encode a string
 export default function (s) {
   if (s === undefined) {
     return ''
