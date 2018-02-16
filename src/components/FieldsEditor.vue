@@ -5,7 +5,7 @@
         v-bind:class="{ selected: field.selected }"
         tabindex="0"
         class="editor-field"
-        v-on:focus="editor.clearSelected(); field.selected = true">
+        v-on:focus="editor.selectField(index)">
       <div class="editor-buttons">
         <span class="btn btn-sm" role="button"><i class="fas fa-arrows-alt"></i></span>
         <span v-on:click="moveUp(index)" class="btn btn-sm" role="button" aria-label="remove"><i class="fas fa-arrow-up"></i></span>
