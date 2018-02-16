@@ -61,7 +61,9 @@ export default {
           placeHolder: null,
           content: null,
           formElement: null,
-          selected: true
+          selected: true,
+          cols: null,
+          rows: null
         }
 
         // Set the specific defaults per field type - this need to be moved into the view components as an export somehow
