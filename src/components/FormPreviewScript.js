@@ -25,7 +25,7 @@ export default {
           </header>
           <div id="app">
             <div class="container-fluid">`
-      if (this.editor !== undefined) {      
+      if (this.editor !== undefined) {
         html = html + '<div class="row">'
         for (i = 0; i < this.editor.formFields.length; i++) {
           html = html + '<div class="col-md-12">' + this.editor.formFields[i].formElement + '</div>'
