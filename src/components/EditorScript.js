@@ -33,7 +33,6 @@ export default {
         this.formFields.push({
           key: formFieldsIndex++,
           type: type,
-          label: 'test label',
           content: null,
           formElement: null,
           selected: true

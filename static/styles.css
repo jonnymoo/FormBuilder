@@ -15,10 +15,28 @@ div#app {
 .selected {
     background-color: #f1f9ff; 
     border-radius: 5px 0 0 5px;
-    padding: 10px;
 }
 
 iframe {
   width: 100%;
   height: 800px;
+}
+
+/* Fields editor */
+.editor-field {
+  padding: 15px;
+}
+
+.editor-field > div {
+  display: table-cell;
+}
+
+.editor-buttons {
+  height: 100%;
+  vertical-align: middle;
+  padding-right: 15px;
+}
+
+.editor-form-element {
+  width: 75%;
 }

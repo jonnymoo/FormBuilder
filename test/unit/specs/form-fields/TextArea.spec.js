@@ -2,7 +2,7 @@ import Vue from 'vue'
 import TextArea from '@/components/form-fields/TextArea'
 import {mount, shallow} from 'vue-test-utils'
 
-describe('TextInput', () => {
+describe('Given a TextInput', () => {
   test("I expect it to have a text area", () => {
     // Given a text input
     var formField = {}
@@ -12,6 +12,4 @@ describe('TextInput', () => {
    
     expect(formField.formElement).toContain('<textarea');
   });
-
-
 })

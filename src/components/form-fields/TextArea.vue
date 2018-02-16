@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form v-if="formField">
     <div class="form-group">
       <label class="control-label">Label</label>
       <input class="form-control" type="text" v-model="formField.label"/>
