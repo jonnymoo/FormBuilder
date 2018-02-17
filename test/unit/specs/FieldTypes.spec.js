@@ -1,0 +1,35 @@
+import FieldTypesList, * as FieldTypes from '@/FieldTypes'
+
+describe('Given FieldTypes', () => {
+  test('when I ask for a new field I expect it be populated with defaults', () => {
+    const fieldType = FieldTypes.CreateInstance("TextInput")
+
+    expect(fieldType.key).toBeDefined()
+    expect(fieldType.type).toEqual("TextInput")
+    expect(fieldType.name).toEqual(null)
+    expect(fieldType.label).toEqual(null)
+    expect(fieldType.placeHolder).toEqual(null)
+    expect(fieldType.content).toEqual(null)
+    expect(fieldType.formElement).toEqual(null)
+    expect(fieldType.selected).toEqual(false)
+    expect(fieldType.cols).toEqual(null)
+    expect(fieldType.rows).toEqual(null)
+  });
+
+  test('when I ask for a TextArea I expect it be populated with its own defaults', () => {
+    const fieldType = FieldTypes.CreateInstance("TextArea")
+
+    expect(fieldType.type).toEqual("TextArea")
+    expect(fieldType.cols).toEqual(40)
+    expect(fieldType.rows).toEqual(5)
+  });
+
+  test('I expect a textinput and textarea in the list', () => {
+    const fieldType = FieldTypesList
+
+    expect(FieldTypesList[0].type).toEqual("TextInput")
+    expect(FieldTypesList[0].desc).toEqual("Text Input")
+    expect(FieldTypesList[1].type).toEqual("TextArea")
+    expect(FieldTypesList[1].desc).toEqual("Text Area")
+  });
+})

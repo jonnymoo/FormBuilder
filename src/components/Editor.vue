@@ -33,8 +33,13 @@
             id="form"
             role="tabpanel"
             aria-labelledby="fields-tab">
-          <button id="text-input" class="btn" v-on:click="addFormItem('TextInput')">Text Input</button>
-          <button id="text-area" class="btn" v-on:click="addFormItem('TextArea')">Text Area</button>
+          <div class="field-type-buttons">
+            <button v-for="fieldType in fieldTypes"
+                v-bind:key="fieldType.type"
+                v-bind:id="fieldType.type"
+                class="btn"
+                v-on:click="addFormItem(fieldType.type)">{{fieldType.desc}}</button>
+          </div>
         </div>
         <div v-bind:class="{ active: propertiesTabActive, show: propertiesTabActive }"
             class="tab-pane fade"

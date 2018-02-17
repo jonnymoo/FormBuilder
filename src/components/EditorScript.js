@@ -1,6 +1,7 @@
 import FieldProperties from '@/components/FieldProperties'
 import FieldsEditor from '@/components/FieldsEditor'
 import FormPreview from '@/components/FormPreview'
+import FieldTypesList, * as FieldTypes from '@/FieldTypes'
 
 export default {
   name: 'Editor',
@@ -20,7 +21,8 @@ export default {
       // Specifies whether the fields tab is active
       fieldsTabActive: true,
       // Specifies whether the preview tab is active
-      previewTabActive: false
+      previewTabActive: false,
+      fieldTypes: FieldTypesList
     }
   },
   methods: {
@@ -47,35 +49,12 @@ export default {
       }
     },
     // Add a new form field item
-    addFormItem: (function () {
-      // Private index variable
-      var formFieldsIndex = 0
-
-      // Add form field to the list - you need to specify all the properties here so they get bound properly
-      return function (type, event) {
-        var field = {
-          key: formFieldsIndex++,
-          type: type,
-          name: null,
-          label: null,
-          placeHolder: null,
-          content: null,
-          formElement: null,
-          selected: true,
-          cols: null,
-          rows: null
-        }
-
-        // Set the specific defaults per field type - this need to be moved into the view components as an export somehow
-        if (type === 'TextArea') {
-          field.cols = 40
-          field.rows = 5
-        }
-
-        // Add the field to the list of fields
-        this.formFields.push(field)
-        this.selectField(this.formFields.length - 1)
-      }
-    })()
+    addFormItem: function (type) {
+      // Add the field to the list of fields
+      var field = FieldTypes.CreateInstance(type)
+      field.selected = true
+      this.formFields.push(field)
+      this.selectField(this.formFields.length - 1)
+    }
   }
 }
