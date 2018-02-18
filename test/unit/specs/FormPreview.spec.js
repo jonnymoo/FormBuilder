@@ -38,12 +38,15 @@ describe('Given a FormPreview', () => {
             {
               formElement: "MyElementStuff"
             }
-          ]
+            
+          ],
+          submitText: "Test Submit"
         }
       }
     });
     
     // I expect it to be in the iframe
     expect(preview.find('iframe').element.srcdoc).toContain("<input type=\"submit")
+    expect(preview.find('iframe').element.srcdoc).toContain("Test Submit")
   });
 })

@@ -35,7 +35,7 @@ export default {
         for (i = 0; i < this.editor.formFields.length; i++) {
           html = html + '<div class="row"><div class="col-md-12">' + this.editor.formFields[i].formElement + '</div></div>'
         }
-        html = html + '<div class="row"><div class="col-md-12"><div class="form-group"><input type="submit" class="btn btn-primary" text="' + htmlEncode(this.editor.submitText) + '"/></div></div></div>'
+        html = html + '<div class="row"><div class="col-md-12"><div class="form-group"><input type="submit" class="btn btn-primary" value="' + htmlEncode(this.editor.submitText) + '"/></div></div></div>'
         html = html + '</div>'
       }
       html = html + `</form></div></div>
