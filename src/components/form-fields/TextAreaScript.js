@@ -12,8 +12,11 @@ export default {
                 name="${htmlEncode(this.formField.name)}" 
                 placeholder="${htmlEncode(this.formField.placeHolder)}"
                 cols="${htmlEncode(this.formField.cols)}"
-                rows="${htmlEncode(this.formField.rows)}"
-                class="form-control"></textarea> 
+                rows="${htmlEncode(this.formField.rows)}" ` +
+                (this.formField.required ? ' required' : '') +
+                (this.formField.pattern ? ` pattern="${htmlEncode(this.formField.pattern)}"` : '') +
+                (this.formField.title ? ` title="${htmlEncode(this.formField.title)}"` : '') +
+                `class="form-control"></textarea> 
       </div>`
     }
   },

@@ -29,17 +29,25 @@
       </ul>
       <div class="tab-content" id="editorTabContent">
         <div v-bind:class="{ active: formTabActive, show: formTabActive }"
-            class="tab-pane fade"
+            class="tab-pane fade container-fluid"
             id="form"
             role="tabpanel"
             aria-labelledby="fields-tab">
-          <div class="field-type-buttons">
-            <button v-for="fieldType in fieldTypes"
-                v-bind:key="fieldType.type"
-                v-bind:id="fieldType.type"
-                class="btn"
-                v-on:click="addFormItem(fieldType.type)">{{fieldType.desc}}</button>
-          </div>
+          <div class="row"><div class="col-md-12">
+            <div class="form-group field-type-buttons">
+              <button v-for="fieldType in fieldTypes"
+                  v-bind:key="fieldType.type"
+                  v-bind:id="fieldType.type"
+                  class="btn"
+                  v-on:click="addFormItem(fieldType.type)">{{fieldType.desc}}</button>
+            </div>
+          </div></div>
+          <div class="row"><div class="col-md-12">
+            <div class="form-group">
+              <label for="submit-text">Submit button</label>
+              <input class="form-control" id="submit-text" name="submit-text" v-model="submitText" />
+            </div>
+          </div></div>
         </div>
         <div v-bind:class="{ active: propertiesTabActive, show: propertiesTabActive }"
             class="tab-pane fade"

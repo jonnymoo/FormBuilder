@@ -28,4 +28,22 @@ describe('Given a FormPreview', () => {
     // I expect it to be in the iframe
     expect(preview.find('iframe').element.srcdoc).toContain("MyElementStuff")
   });
+
+  test('When I have a form element I expect a submit button to be in the iframe', () => {
+    // Given a preview, when I have a form element
+    const preview = shallow(FormPreview, {
+      propsData: {
+        editor: {
+          formFields: [
+            {
+              formElement: "MyElementStuff"
+            }
+          ]
+        }
+      }
+    });
+    
+    // I expect it to be in the iframe
+    expect(preview.find('iframe').element.srcdoc).toContain("<input type=\"submit")
+  });
 })

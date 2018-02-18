@@ -22,7 +22,11 @@ export default {
       fieldsTabActive: true,
       // Specifies whether the preview tab is active
       previewTabActive: false,
-      fieldTypes: FieldTypesList
+      // Field types
+      fieldTypes: FieldTypesList,
+      // submit text
+      submitText: 'Submit'
+
     }
   },
   methods: {

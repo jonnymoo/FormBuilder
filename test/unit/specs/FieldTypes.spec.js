@@ -14,6 +14,9 @@ describe('Given FieldTypes', () => {
     expect(fieldType.selected).toEqual(false)
     expect(fieldType.cols).toEqual(null)
     expect(fieldType.rows).toEqual(null)
+    expect(fieldType.required).toEqual(false)
+    expect(fieldType.pattern).toEqual(null)
+    expect(fieldType.title).toEqual(null)
   });
 
   test('when I ask for a TextArea I expect it be populated with its own defaults', () => {
@@ -24,12 +27,14 @@ describe('Given FieldTypes', () => {
     expect(fieldType.rows).toEqual(5)
   });
 
-  test('I expect a textinput and textarea in the list', () => {
+  test('I expect a textinput textarea and markdown in the list', () => {
     const fieldType = FieldTypesList
 
     expect(FieldTypesList[0].type).toEqual("TextInput")
     expect(FieldTypesList[0].desc).toEqual("Text Input")
     expect(FieldTypesList[1].type).toEqual("TextArea")
     expect(FieldTypesList[1].desc).toEqual("Text Area")
-  });
+    expect(FieldTypesList[2].type).toEqual("MarkDown")
+    expect(FieldTypesList[2].desc).toEqual("MarkDown")
+ });
 })

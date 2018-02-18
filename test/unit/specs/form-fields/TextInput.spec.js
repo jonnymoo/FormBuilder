@@ -40,4 +40,43 @@ describe('TextInput', () => {
         
     expect(formField.formElement).toContain('<input type="text"');
   });
+
+  test("When it is required I expect it to a required flag", () => {
+    // Given a text input when it is required
+    var formField = {
+      required: true
+    }
+    const wrapper = shallow(TextInput, {
+      propsData: { formField }
+    })
+        
+    // I expect the required flag
+    expect(formField.formElement).toContain('required');
+  });
+
+  test("When it is has a pattern I expect it have the pattern attribute", () => {
+    // Given a text input when it has a pattern
+    var formField = {
+      pattern: "[A-Za-z]{3}"
+    }
+    const wrapper = shallow(TextInput, {
+      propsData: { formField }
+    })
+    
+    // Expect the pattern attribute
+    expect(formField.formElement).toContain('pattern="[A-Za-z]{3}"');
+  });
+
+  test("When it is has a validation message I expect it have the title attribute", () => {
+    // Given a text input when it has a validation message
+    var formField = {
+      title: "WTF"
+    }
+    const wrapper = shallow(TextInput, {
+      propsData: { formField }
+    })
+    
+    // I expect a title attribute
+    expect(formField.formElement).toContain('title="WTF"');
+  });
 })

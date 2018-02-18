@@ -7,6 +7,10 @@ export default [
   {
     type: 'TextArea',
     desc: 'Text Area'
+  },
+  {
+    type: 'MarkDown',
+    desc: 'MarkDown'
   }
 ]
 
@@ -25,7 +29,10 @@ export function CreateInstance (type) {
     formElement: null,
     selected: false,
     cols: null,
-    rows: null
+    rows: null,
+    required: false,
+    pattern: null,
+    title: null
   }
 
   // Set the specific defaults per field type - this need to be moved into the view components as an export somehow
