@@ -32,11 +32,13 @@ export default {
       var json = '{\r\n'
       var i = 0
       for (i = 0; i < this.editor.formFields.length; i++) {
-        json = json + `\t"${this.editor.formFields[i].name}": ''`
-        if (i !== this.editor.formFields.length - 1) {
-          json = json + ','
+        if (this.editor.formFields[i].name) {
+          json = json + `\t"${this.editor.formFields[i].name}": ''`
+          if (i !== this.editor.formFields.length - 1) {
+            json = json + ','
+          }
+          json = json + '\r\n'
         }
-        json = json + '\r\n'
       }
       json = json + '}'
       return json

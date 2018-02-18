@@ -51,7 +51,7 @@ describe('Given a FormPreview', () => {
   });
 
 
-  test('When I have named fields I expect the to appear in my default json', () => {
+  test('When I have named fields I expect them to appear in my default json', () => {
     // Given a preview, when I have named fields
     const preview = shallow(FormPreview, {
       propsData: {
@@ -73,6 +73,30 @@ describe('Given a FormPreview', () => {
     expect(preview.vm.fieldsJsonDefault).toContain('"MyName": \'\'')
     expect(preview.vm.fieldsJsonDefault).toContain('"MyName2": \'\'')
   });
+
+  test('When I have un-named fields I dont expect them to appear in my default json', () => {
+    // Given a preview, when I have named fields
+    const preview = shallow(FormPreview, {
+      propsData: {
+        editor: {
+          formFields: [
+            {
+              name: null
+            },
+            {
+              name: "MyName2"
+            }
+          ]
+        }
+      }
+    });
+    
+
+    // I expect it to be in the default json
+    expect(preview.vm.fieldsJsonDefault).not.toContain('"null": \'\'')
+    expect(preview.vm.fieldsJsonDefault).toContain('"MyName2": \'\'')
+  });
+
 
   test('When I set form json default I expect it to be copied to the fields json', () => {
     // Given a preview
