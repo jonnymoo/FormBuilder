@@ -12,11 +12,15 @@ export default {
                 name="${htmlEncode(this.formField.name)}" 
                 placeholder="${htmlEncode(this.formField.placeHolder)}"
                 cols="${htmlEncode(this.formField.cols)}"
-                rows="${htmlEncode(this.formField.rows)}" ` +
+                rows="${htmlEncode(this.formField.rows)}"
+                class="form-control"
+                v-model="fields.${htmlEncode(this.formField.name)}"
+                v-bind:readonly="form.readOnly"
+                ` +
                 (this.formField.required ? ' required' : '') +
-                (this.formField.pattern ? ` pattern="${htmlEncode(this.formField.pattern)}"` : '') +
-                (this.formField.title ? ` title="${htmlEncode(this.formField.title)}"` : '') +
-                `class="form-control"></textarea> 
+                (this.formField.validationPattern ? ` pattern="${htmlEncode(this.formField.validationPattern)}"` : '') +
+                (this.formField.validationMessage ? ` title="${htmlEncode(this.formField.validationMessage)}"` : '') +
+                `></textarea> 
       </div>`
     }
   },

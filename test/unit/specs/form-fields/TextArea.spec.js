@@ -14,7 +14,7 @@ describe('Given a TextInput', () => {
     expect(formField.formElement).toContain('<textarea');
   });
 
-  test("When it is required I expect it to a required flag", () => {
+  test("When it is required I expect it to have a required flag", () => {
     // Given a text area when it is required
     var formField = {
       required: true
@@ -30,7 +30,7 @@ describe('Given a TextInput', () => {
   test("When it is has a pattern I expect it have the pattern attribute", () => {
     // Given a text area when it has a pattern
     var formField = {
-      pattern: "[A-Za-z]{3}"
+      validationPattern: "[A-Za-z]{3}"
     }
     const wrapper = shallow(TextArea, {
       propsData: { formField }
@@ -43,7 +43,7 @@ describe('Given a TextInput', () => {
   test("When it is has a validation message I expect it have the title attribute", () => {
     // Given a text area when it has a validation message
     var formField = {
-      title: "WTF"
+      validationMessage: "WTF"
     }
     const wrapper = shallow(TextArea, {
       propsData: { formField }
@@ -51,5 +51,18 @@ describe('Given a TextInput', () => {
     
     // I expect a title attribute
     expect(formField.formElement).toContain('title="WTF"');
+  });
+
+  test("I expect it to have a readonly flag bound to a vue field", () => {
+    // Given a text area when it is required
+    var formField = {
+      readonly: true
+    }
+    const wrapper = shallow(TextArea, {
+      propsData: { formField }
+    })
+    
+    // I expect the required flag
+    expect(formField.formElement).toContain('v-model="form.readOnly"');
   });
 })

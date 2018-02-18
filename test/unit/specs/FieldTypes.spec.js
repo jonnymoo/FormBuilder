@@ -15,8 +15,8 @@ describe('Given FieldTypes', () => {
     expect(fieldType.cols).toEqual(null)
     expect(fieldType.rows).toEqual(null)
     expect(fieldType.required).toEqual(false)
-    expect(fieldType.pattern).toEqual(null)
-    expect(fieldType.title).toEqual(null)
+    expect(fieldType.validationPattern).toEqual(null)
+    expect(fieldType.validationMessage).toEqual(null)
   });
 
   test('when I ask for a TextArea I expect it be populated with its own defaults', () => {

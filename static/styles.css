@@ -5,7 +5,7 @@ header {
 }
 
 div#app {
-  padding-top: 15px;
+  margin-top: 15px;
 }
 
 .tab-content {
@@ -20,8 +20,15 @@ div#app {
 iframe {
   width: 100%;
   height: 800px;
+  border: none;
 }
 
+.card {
+  margin-top: 5px;
+}
+.card-block {
+  margin-top: 15px;
+}
 /* Fields editor */
 .editor-field {
   padding: 15px;
@@ -43,4 +50,10 @@ iframe {
 
 .field-type-buttons button {
   margin-right: 15px;
+}
+
+/* CodeMirror */
+
+.CodeMirror {
+  padding: 15px 0;
 }

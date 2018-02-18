@@ -11,10 +11,12 @@ export default {
         <input type="text" id="${htmlEncode(this.formField.name)}" 
                name="${htmlEncode(this.formField.name)}" 
                placeholder="${htmlEncode(this.formField.placeHolder)}" 
-               class="form-control"` +
+               class="form-control"
+               v-model="fields.${htmlEncode(this.formField.name)}"
+               v-bind:readonly="form.readOnly"` +
                (this.formField.required ? ' required' : '') +
-               (this.formField.pattern ? ` pattern="${htmlEncode(this.formField.pattern)}"` : '') +
-               (this.formField.title ? ` title="${htmlEncode(this.formField.title)}"` : '') +
+               (this.formField.validationPattern ? ` pattern="${htmlEncode(this.formField.validationPattern)}"` : '') +
+               (this.formField.validationMessage ? ` title="${htmlEncode(this.formField.validationMessage)}"` : '') +
                `/> 
       </div>`
     }

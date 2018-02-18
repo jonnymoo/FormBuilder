@@ -31,8 +31,8 @@ export function CreateInstance (type) {
     cols: null,
     rows: null,
     required: false,
-    pattern: null,
-    title: null
+    validationPattern: null,
+    validationMessage: null
   }
 
   // Set the specific defaults per field type - this need to be moved into the view components as an export somehow

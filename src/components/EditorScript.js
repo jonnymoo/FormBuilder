@@ -26,7 +26,6 @@ export default {
       fieldTypes: FieldTypesList,
       // submit text
       submitText: 'Submit'
-
     }
   },
   methods: {
