@@ -90,6 +90,6 @@ describe('TextInput', () => {
     })
     
     // I expect the required flag
-    expect(formField.formElement).toContain('v-model="form.readOnly"');
+    expect(formField.formElement).toContain('v-bind:readonly="form.readOnly"');
   });
 })

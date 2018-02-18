@@ -15,6 +15,7 @@ export default {
       readOnly: false,
       settingsVisible: false,
       previewVisible: true,
+      HTMLSourceVisible: false,
       fieldsJson: '{\r\n}',
       cmOptions: {
         // codemirror options
@@ -30,14 +31,12 @@ export default {
     fieldsJsonDefault: function () {
       var json = '{\r\n'
       var i = 0
-      if (this.editor !== undefined) {
-        for (i = 0; i < this.editor.formFields.length; i++) {
-          json = json + `\t"${this.editor.formFields[i].name}": ''`
-          if (i !== this.editor.formFields.length - 1) {
-            json = json + ','
-          }
-          json = json + '\r\n'
+      for (i = 0; i < this.editor.formFields.length; i++) {
+        json = json + `\t"${this.editor.formFields[i].name}": ''`
+        if (i !== this.editor.formFields.length - 1) {
+          json = json + ','
         }
+        json = json + '\r\n'
       }
       json = json + '}'
       return json

@@ -61,6 +61,26 @@
           </div>
         </div>
       </div>
+      <div class="card">
+        <div class="card-header" role="tab" id="HeadingHTMLSource">
+          <h5 class="mb-0">
+            <a v-bind:class="{ collapsed: !HTMLSourceVisible }"
+              href="javascript:void(0)"
+              v-bind:aria-expanded="HTMLSourceVisible"
+              aria-controls="HTMLSource"
+              v-on:click="HTMLSourceVisible = !HTMLSourceVisible">
+              HTML Source
+            </a>
+          </h5>
+        </div>
+        <div id="HTMLSource"
+            v-bind:class="{ show: HTMLSourceVisible }"
+            class="collapse"
+            role="tabpanel"
+            aria-labelledby="HeadingHTMLSource">
+          <textarea class="form-control" rows="80" v-model="preview"></textarea>
+        </div>
+      </div>
     </div>
   </div>
 </template>

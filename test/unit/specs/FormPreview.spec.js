@@ -46,7 +46,73 @@ describe('Given a FormPreview', () => {
     });
     
     // I expect it to be in the iframe
-    expect(preview.find('iframe').element.srcdoc).toContain("<input type=\"submit")
-    expect(preview.find('iframe').element.srcdoc).toContain("Test Submit")
+    expect(preview.find('iframe').element.srcdoc).toContain('button class="btn btn-primary" v-on:click="submit"')
+    expect(preview.find('iframe').element.srcdoc).toContain('Test Submit')
+  });
+
+
+  test('When I have named fields I expect the to appear in my default json', () => {
+    // Given a preview, when I have named fields
+    const preview = shallow(FormPreview, {
+      propsData: {
+        editor: {
+          formFields: [
+            {
+              name: "MyName"
+            },
+            {
+              name: "MyName2"
+            }
+          ]
+        }
+      }
+    });
+    
+
+    // I expect it to be in the default json
+    expect(preview.vm.fieldsJsonDefault).toContain('"MyName": \'\'')
+    expect(preview.vm.fieldsJsonDefault).toContain('"MyName2": \'\'')
+  });
+
+  test('When I set form json default I expect it to be copied to the fields json', () => {
+    // Given a preview
+    const preview = shallow(FormPreview, {
+      propsData: {
+        editor: {
+          formFields: [
+            {
+              name: "MyName"
+            }
+          ]
+        }
+      }
+    });
+    
+    // when I set the json default
+    preview.vm.setDefault();
+
+    // I expect it to be copied to the fields json
+    expect(preview.vm.fieldsJson).toContain('"MyName": \'\'')
+  });
+
+  test('When I set the form to readonly I expect no submit button', () => {
+    // Given a preview 
+    const preview = shallow(FormPreview, {
+      propsData: {
+        editor: {
+          formFields: [
+            {
+              name: "MyName"
+            }
+          ]
+        }
+      }
+    });
+    
+    // when I set the form to readonly
+    preview.vm.readOnly = true;
+
+    // I don't expect the submit button
+    expect(preview.vm.preview).not.toContain('v-on:click="submit"')
   });
 })
