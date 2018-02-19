@@ -12,7 +12,7 @@ export default {
                name="${htmlEncode(this.formField.name)}" 
                placeholder="${htmlEncode(this.formField.placeHolder)}" 
                class="form-control" ` +
-               (this.formField.name ? ` v-model="fields.${htmlEncode(this.formField.name)}"` : '') +
+               (this.formField.name ? ` v-model="fields.${htmlEncode(this.formField.name)}" ` : '') +
                `v-bind:readonly="form.readOnly"` +
                (this.formField.required ? ' required' : '') +
                (this.formField.validationPattern ? ` pattern="${htmlEncode(this.formField.validationPattern)}"` : '') +
