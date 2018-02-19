@@ -14,7 +14,7 @@ export default {
   data () {
     return {
       readOnly: false,
-      settingsVisible: true,
+      settingsVisible: false,
       previewVisible: true,
       HTMLSourceVisible: false,
       fieldsJson: '{\r\n}',
