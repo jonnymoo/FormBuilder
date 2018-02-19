@@ -19,11 +19,11 @@
     </div>
     <div class="form-group">
       <label class="control-label">Validation pattern</label>
-      <input class="form-control" type="text" v-model="formField.pattern"/>
+      <input class="form-control" type="text" v-model="formField.validationPattern"/>
     </div>
     <div class="form-group">
       <label class="control-label">Validation message</label>
-      <input class="form-control" type="text" v-model="formField.title"/>
+      <input class="form-control" type="text" v-model="formField.validationMessage"/>
     </div>
   </form>
 </template>

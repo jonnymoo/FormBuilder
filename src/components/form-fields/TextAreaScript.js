@@ -13,10 +13,9 @@ export default {
                 placeholder="${htmlEncode(this.formField.placeHolder)}"
                 cols="${htmlEncode(this.formField.cols)}"
                 rows="${htmlEncode(this.formField.rows)}"
-                class="form-control"
-                v-model="fields.${htmlEncode(this.formField.name)}"
-                v-bind:readonly="form.readOnly"
-                ` +
+                class="form-control" ` +
+               (this.formField.name ? ` v-model="fields.${htmlEncode(this.formField.name)}"` : '') +
+               `v-bind:readonly="form.readOnly"` +
                 (this.formField.required ? ' required' : '') +
                 (this.formField.validationPattern ? ` pattern="${htmlEncode(this.formField.validationPattern)}"` : '') +
                 (this.formField.validationMessage ? ` title="${htmlEncode(this.formField.validationMessage)}"` : '') +

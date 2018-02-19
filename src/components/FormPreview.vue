@@ -3,6 +3,29 @@
   <div class="container-fluid">
     <div role="tablist" aria-multiselectable="true">
       <div class="card">
+        <div class="card-header" role="tab" id="HeadingPreview">
+          <h5 class="mb-0">
+            <a v-bind:class="{ collapsed: !previewVisible }"
+              href="javascript:void(0)"
+              v-bind:aria-expanded="previewVisible"
+              aria-controls="collapseTwo"
+              v-on:click="previewVisible = !previewVisible">
+              Preview
+            </a>
+          </h5>
+        </div>
+        <div id="Preview"
+            v-bind:class="{ show: previewVisible }"
+            class="collapse"
+            role="tabpanel"
+            aria-labelledby="HeadingPreview">
+          <div class="card-block">
+            <iframe :srcdoc="preview">
+            </iframe>
+          </div>
+        </div>
+      </div>
+      <div class="card">
         <div class="card-header" role="tab" id="HeadingPreviewSettings">
           <h5 class="mb-0">
             <a v-bind:class="{ collapsed: !settingsVisible }"
@@ -39,29 +62,6 @@
         </div>
       </div>
       <div class="card">
-        <div class="card-header" role="tab" id="HeadingPreview">
-          <h5 class="mb-0">
-            <a v-bind:class="{ collapsed: !previewVisible }"
-              href="javascript:void(0)"
-              v-bind:aria-expanded="previewVisible"
-              aria-controls="collapseTwo"
-              v-on:click="previewVisible = !previewVisible">
-              Preview
-            </a>
-          </h5>
-        </div>
-        <div id="Preview"
-            v-bind:class="{ show: previewVisible }"
-            class="collapse"
-            role="tabpanel"
-            aria-labelledby="HeadingPreview">
-          <div class="card-block">
-            <iframe :srcdoc="preview">
-            </iframe>
-          </div>
-        </div>
-      </div>
-      <div class="card">
         <div class="card-header" role="tab" id="HeadingHTMLSource">
           <h5 class="mb-0">
             <a v-bind:class="{ collapsed: !HTMLSourceVisible }"
@@ -78,7 +78,7 @@
             class="collapse"
             role="tabpanel"
             aria-labelledby="HeadingHTMLSource">
-          <textarea class="form-control" rows="80" v-model="preview"></textarea>
+          <codemirror v-model="preview" v-bind:options="cmOptionshtml"></codemirror>
         </div>
       </div>
     </div>

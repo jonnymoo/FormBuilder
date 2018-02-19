@@ -46,7 +46,7 @@ describe('Given a FormPreview', () => {
     });
     
     // I expect it to be in the iframe
-    expect(preview.find('iframe').element.srcdoc).toContain('button class="btn btn-primary" v-on:click="submit"')
+    expect(preview.find('iframe').element.srcdoc).toContain('<input type="submit"')
     expect(preview.find('iframe').element.srcdoc).toContain('Test Submit')
   });
 

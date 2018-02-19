@@ -2,9 +2,9 @@
 <template>
 <div>
     <div v-for="field in formFields" :key="field.key" v-if="field.selected">
-        <TextInput v-if="field.type==='TextInput'" :formField="field"></TextInput>
-        <TextArea v-if="field.type==='TextArea'" :formField="field"></TextArea>
-        <MarkDown v-if="field.type==='MarkDown'" :formField="field"></MarkDown>
+      <TextInput v-if="field.type==='TextInput'" :formField="field"></TextInput>
+      <TextArea v-if="field.type==='TextArea'" :formField="field"></TextArea>
+      <MarkDown v-if="field.type==='MarkDown'" :formField="field"></MarkDown>
     </div>
 </div>
 </template>

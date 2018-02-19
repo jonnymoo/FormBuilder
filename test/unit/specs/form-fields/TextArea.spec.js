@@ -65,4 +65,17 @@ describe('Given a TextInput', () => {
     // I expect the required flag
     expect(formField.formElement).toContain('v-bind:readonly="form.readOnly"');
   });
+
+  test("When I have a name I expect it to be bound to the model", () => {
+    // Given a text area when it is has a name
+    var formField = {
+      name: "test"
+    }
+    const wrapper = shallow(TextArea, {
+      propsData: { formField }
+    })
+    
+    // I expect the v-model flag
+    expect(formField.formElement).toContain('v-model="fields.test"');
+  });
 })
