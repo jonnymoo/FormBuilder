@@ -32,7 +32,8 @@ export default {
         mode: 'text/html',
         lineNumbers: true,
         line: true,
-        autoRefresh: true
+        autoRefresh: true,
+        readOnly: true
       }
     }
   },

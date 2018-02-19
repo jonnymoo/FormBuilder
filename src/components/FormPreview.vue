@@ -114,7 +114,7 @@
             class="collapse"
             role="tabpanel"
             aria-labelledby="HeadingHTMLSource">
-          <codemirror v-model="preview" v-bind:options="cmOptionshtml"></codemirror>
+          <codemirror v-bind:value="preview" v-bind:options="cmOptionshtml"></codemirror>
         </div>
       </div>
     </div>
