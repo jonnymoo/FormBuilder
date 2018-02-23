@@ -79,30 +79,28 @@ export default {
   <body>
     <div id="app">
       <form onsubmit="return submitForm(event)" class="container-fluid">`
-      if (this.editor !== undefined) {
-        for (i = 0; i < this.editor.formFields.length; i++) {
+      for (i = 0; i < this.editor.formFields.length; i++) {
+        if(this.editor.formFields[i].show) {
+          html = html + `
+      <div class="row">
+        <div class="col-md-12">`
+          }
+          html = html + this.editor.formFields[i].formElement
           if(this.editor.formFields[i].show) {
             html = html + `
-        <div class="row">
-          <div class="col-md-12">`
-           }
-           html = html + this.editor.formFields[i].formElement
-           if(this.editor.formFields[i].show) {
-              html = html + `
+        </div>
+      </div>`
+          }
+      }
+      if (!this.readOnly) {
+        html = html + `
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="${htmlEncode(this.editor.submitText)}" />
           </div>
-        </div>`
-           }
-        }
-        if (!this.readOnly) {
-          html = html + `
-        <div class="row">
-          <div class="col-md-12">
-            <div class="form-group">
-              <input type="submit" class="btn btn-primary" value="${htmlEncode(this.editor.submitText)}" />
-            </div>
-          </div>
-        </div>`
-        }
+        </div>
+      </div>`
       }
       html = html + `
       </form>

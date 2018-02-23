@@ -5,8 +5,17 @@ import {mount, shallow} from 'vue-test-utils'
 describe('Given a FormPreview', () => {
    test('I expect it have an iframe', () => {
     // Given a preview
-    const preview = shallow(FormPreview);
-    
+    const preview = shallow(FormPreview, {
+      propsData: {
+        editor: {
+          formFields: [
+            {
+              formElement: "MyElementStuff"
+            }
+          ]
+        }
+      }
+    });    
     // I expect an iframe
     expect(preview.findAll('iframe').length).toEqual(1)
   });
@@ -50,54 +59,6 @@ describe('Given a FormPreview', () => {
     expect(preview.find('iframe').element.srcdoc).toContain('Test Submit')
   });
 
-
-  test('When I have named fields I expect them to appear in my default json', () => {
-    // Given a preview, when I have named fields
-    const preview = shallow(FormPreview, {
-      propsData: {
-        editor: {
-          formFields: [
-            {
-              name: "MyName"
-            },
-            {
-              name: "MyName2"
-            }
-          ]
-        }
-      }
-    });
-    
-
-    // I expect it to be in the default json
-    expect(preview.vm.fieldsJsonDefault).toContain('"MyName": \'\'')
-    expect(preview.vm.fieldsJsonDefault).toContain('"MyName2": \'\'')
-  });
-
-  test('When I have un-named fields I dont expect them to appear in my default json', () => {
-    // Given a preview, when I have named fields
-    const preview = shallow(FormPreview, {
-      propsData: {
-        editor: {
-          formFields: [
-            {
-              name: null
-            },
-            {
-              name: "MyName2"
-            }
-          ]
-        }
-      }
-    });
-    
-
-    // I expect it to be in the default json
-    expect(preview.vm.fieldsJsonDefault).not.toContain('"null": \'\'')
-    expect(preview.vm.fieldsJsonDefault).toContain('"MyName2": \'\'')
-  });
-
-
   test('When I set form json default I expect it to be copied to the fields json', () => {
     // Given a preview
     const preview = shallow(FormPreview, {
@@ -107,7 +68,8 @@ describe('Given a FormPreview', () => {
             {
               name: "MyName"
             }
-          ]
+          ],
+          fieldsJsonDefault: "test"
         }
       }
     });
@@ -116,8 +78,105 @@ describe('Given a FormPreview', () => {
     preview.vm.setDefault();
 
     // I expect it to be copied to the fields json
-    expect(preview.vm.fieldsJson).toContain('"MyName": \'\'')
+    expect(preview.vm.fieldsJson).toEqual("test")
   });
+
+  test('When I have fields with conditions I expect them in my methods json', () => {
+    // Given a preview
+    const preview = shallow(FormPreview, {
+      propsData: {
+        editor: {
+          formFields: [
+            {
+              name: "MyName",
+              condition: "test"
+            },
+            {
+              name: "MyName2",
+              condition: "test2"
+            }
+
+          ],
+          fieldsJsonDefault: "test"
+        }
+      }
+    });
+    
+    // I expect it to be copied to the fields json
+    expect(preview.vm.methodsJson).toContain("return ( test )")
+  });
+
+  test('When I have fields with blank conditions I expect them in my methods json as return true', () => {
+    // Given a preview
+    const preview = shallow(FormPreview, {
+      propsData: {
+        editor: {
+          formFields: [
+            {
+              name: "MyName",
+              condition: "test"
+            },
+            {
+              name: "MyName2",
+              condition: ""
+            }
+
+          ],
+          fieldsJsonDefault: "test"
+        }
+      }
+    });
+    
+    // I expect it to be copied to the fields json
+    expect(preview.vm.methodsJson).toContain("return ( true )")
+  });
+
+  test('When I fields which are shown I expect them to have a row and column in the preview', () => {
+    // Given a preview
+    const preview = shallow(FormPreview, {
+      propsData: {
+        editor: {
+          formFields: [
+            {
+              name: "MyName",
+              condition: "test",
+              show: true
+            }
+          ]
+        }
+      }
+    });
+    
+    preview.vm.readOnly = true
+    // I expect it to be copied to the fields json
+    expect(preview.vm.preview).toContain('<div class="row">')
+    expect(preview.vm.preview).toContain('<div class="col-md-12">')
+
+  });
+
+  test('When I fields which are not shown I expect them to not have a row and column in the preview', () => {
+    // Given a preview
+    const preview = shallow(FormPreview, {
+      propsData: {
+        editor: {
+          formFields: [
+            {
+              name: "MyName",
+              condition: "test",
+              show: false
+            }
+          ]
+        }
+      }
+    });
+    
+    preview.vm.readOnly = true
+    // I expect it to be copied to the fields json
+    expect(preview.vm.preview).not.toContain('<div class="row">')
+    expect(preview.vm.preview).not.toContain('<div class="col-md-12">')
+
+  });
+
 
   test('When I set the form to readonly I expect no submit button', () => {
     // Given a preview 

@@ -56,7 +56,7 @@ export function CreateInstance (fieldType) {
   }
 
   // Set the specific defaults per field type - this need to be moved into the view components as an export somehow
-  if (fieldType === 'TextArea') {
+  if (fieldType.type === 'TextArea') {
     field.cols = 40
     field.rows = 5
   }

@@ -2,10 +2,12 @@ import FieldTypesList, * as FieldTypes from '@/FieldTypes'
 
 describe('Given FieldTypes', () => {
   test('when I ask for a new field I expect it be populated with defaults', () => {
-    const fieldType = FieldTypes.CreateInstance("TextInput")
+    const fieldType = FieldTypes.CreateInstance({type: "TextInput", desc: "Test", show: true})
 
     expect(fieldType.key).toBeDefined()
     expect(fieldType.type).toEqual("TextInput")
+    expect(fieldType.desc).toEqual("Test")
+    expect(fieldType.show).toEqual(true)
     expect(fieldType.name).toEqual(null)
     expect(fieldType.label).toEqual(null)
     expect(fieldType.placeHolder).toEqual(null)
@@ -20,7 +22,7 @@ describe('Given FieldTypes', () => {
   });
 
   test('when I ask for a TextArea I expect it be populated with its own defaults', () => {
-    const fieldType = FieldTypes.CreateInstance("TextArea")
+    const fieldType = FieldTypes.CreateInstance({type: "TextArea", desc: '', show: false})
 
     expect(fieldType.type).toEqual("TextArea")
     expect(fieldType.cols).toEqual(40)

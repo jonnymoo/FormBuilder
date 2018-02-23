@@ -152,4 +152,41 @@ describe('Editor.vue', () => {
     expect(editor.vm.previewTabActive).toEqual(true);
   });
 
+  test('When I have named fields I expect them to appear in my default json', () => {
+    // Given a editor, when I have named fields
+    const editor = shallow(Editor)
+    
+    editor.vm.formFields =  [
+        {
+          name: "MyName"
+        },
+        {
+          name: "MyName2"
+        }
+      ]
+
+    // I expect it to be in the default json
+    expect(editor.vm.fieldsJsonDefault).toContain('"MyName": \'\'')
+    expect(editor.vm.fieldsJsonDefault).toContain('"MyName2": \'\'')
+  });
+
+  test('When I have un-named fields I dont expect them to appear in my default json', () => {
+    // Given a editor, when I have named fields
+    const editor = shallow(Editor)
+    
+    editor.vm.formFields = [
+        {
+          name: null
+        },
+        {
+          name: "MyName2"
+        }
+      ]
+
+    // I expect it to be in the default json
+    expect(editor.vm.fieldsJsonDefault).not.toContain('"null": \'\'')
+    expect(editor.vm.fieldsJsonDefault).toContain('"MyName2": \'\'')
+  });
+
+
 })
