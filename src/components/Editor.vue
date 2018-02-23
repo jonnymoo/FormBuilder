@@ -35,11 +35,14 @@
             aria-labelledby="fields-tab">
           <div class="row"><div class="col-md-12">
             <div class="form-group field-type-buttons">
-              <button v-for="fieldType in fieldTypes"
-                  v-bind:key="fieldType.type"
-                  v-bind:id="fieldType.type"
-                  class="btn"
-                  v-on:click="addFormItem(fieldType.type)">{{fieldType.desc}}</button>
+              <template v-for="fieldType in fieldTypes">
+                <button v-if="fieldType.type"
+                    v-bind:key="fieldType.type"
+                    v-bind:id="fieldType.type"
+                    class="btn"
+                    v-on:click="addFormItem(fieldType)">{{fieldType.desc}}</button>
+                <br v-else v-bind:key="fieldType.type"/>
+              </template>
             </div>
           </div></div>
           <div class="row"><div class="col-md-12">

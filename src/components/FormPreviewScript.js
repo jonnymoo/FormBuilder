@@ -38,20 +38,25 @@ export default {
     }
   },
   computed: {
-    fieldsJsonDefault: function () {
-      var json = '{\r\n'
+    // Gets the computed stuff (conditions etc) needed for the view
+    methodsJson: function() {
       var i = 0
+      var ret = '{\n'
       for (i = 0; i < this.editor.formFields.length; i++) {
-        if (this.editor.formFields[i].name) {
-          json = json + `\t"${this.editor.formFields[i].name}": ''`
-          if (i !== this.editor.formFields.length - 1) {
-            json = json + ','
-          }
-          json = json + '\r\n'
+        var field = this.editor.formFields[i]
+        ret = ret + `        'FieldCondition_${field.key}': function () {
+          return ( ${field.condition === '' ? 'true' : field.condition} )
+        }`
+
+        if (i !== this.editor.formFields.length - 1) {
+          ret = ret + ','
         }
+
+        ret = ret + '\n'
       }
-      json = json + '}'
-      return json
+      ret = ret + '}\n'
+
+      return ret
     },
     // Returns the html for the form
     preview: function () {
@@ -76,11 +81,17 @@ export default {
       <form onsubmit="return submitForm(event)" class="container-fluid">`
       if (this.editor !== undefined) {
         for (i = 0; i < this.editor.formFields.length; i++) {
-          html = html + `
+          if(this.editor.formFields[i].show) {
+            html = html + `
         <div class="row">
-          <div class="col-md-12">` + this.editor.formFields[i].formElement + `
+          <div class="col-md-12">`
+           }
+           html = html + this.editor.formFields[i].formElement
+           if(this.editor.formFields[i].show) {
+              html = html + `
           </div>
         </div>`
+           }
         }
         if (!this.readOnly) {
           html = html + `
@@ -114,7 +125,8 @@ export default {
             readOnly: ${this.readOnly}
           },
           fields: fields
-        }
+        },
+        methods: ${this.methodsJson}
       })
       function submitForm(e) {
         e.preventDefault()
@@ -129,7 +141,7 @@ export default {
   },
   methods: {
     setDefault: function () {
-      this.fieldsJson = this.fieldsJsonDefault
+      this.fieldsJson = this.editor.fieldsJsonDefault
     }
   }
 }

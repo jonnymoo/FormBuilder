@@ -17,9 +17,11 @@
     "@vue/test-utils": "^1.0.0-beta.11",
     "bootstrap": "^4.0.0",
     "marked": "^0.3.14",
+    "monaco-editor": "^0.10.1",
     "vue": "^2.5.2",
     "vue-codemirror": "^4.0.3",
     "vue-markdown": "^2.2.4",
+    "vue-monaco": "^0.1.6",
     "vue-router": "^3.0.1",
     "vue-test-utils": "^1.0.0-beta.11",
     "vuedraggable": "^2.16.0"

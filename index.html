@@ -12,6 +12,25 @@
     <!-- Font awesome -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
+    <script src="https://unpkg.com/monaco-editor@0.10.1/min/vs/loader.js"></script>
+    <script>
+      require.config({ 
+        paths: { 
+          vs: 'https://unpkg.com/monaco-editor@0.10.1/min/vs'
+        }
+      })
+
+      window.MonacoEnvironment = { getWorkerUrl: () => proxy };
+
+      let proxy = URL.createObjectURL(new Blob([`
+        self.MonacoEnvironment = {
+          baseUrl: 'https://unpkg.com/monaco-editor@0.10.1/min/'
+        };
+        importScripts('https://unpkg.com/monaco-editor@0.10.1/min/vs/base/worker/workerMain.js');
+      `], { type: 'text/javascript' }));
+
+    </script>
+
     <title>Form Builder</title>
   </head>
   <body>

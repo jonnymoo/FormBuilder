@@ -28,6 +28,23 @@ export default {
       submitText: 'Submit'
     }
   },
+  computed: {
+    fieldsJsonDefault: function () {
+      var json = '{\r\n'
+      var i = 0
+      for (i = 0; i < this.formFields.length; i++) {
+        if (this.formFields[i].name) {
+          json = json + `\t"${this.formFields[i].name}": ''`
+          if (i !== this.formFields.length - 1) {
+            json = json + ','
+          }
+          json = json + '\r\n'
+        }
+      }
+      json = json + '}'
+      return json
+    }
+  },
   methods: {
     // Select a field at a given index
     selectField: function (index) {
@@ -52,9 +69,9 @@ export default {
       }
     },
     // Add a new form field item
-    addFormItem: function (type) {
+    addFormItem: function (fieldType) {
       // Add the field to the list of fields
-      var field = FieldTypes.CreateInstance(type)
+      var field = FieldTypes.CreateInstance(fieldType)
       field.selected = true
       this.formFields.push(field)
       this.selectField(this.formFields.length - 1)
