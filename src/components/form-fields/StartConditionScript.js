@@ -1,4 +1,5 @@
 import MonacoEditor from 'vue-monaco'
+import monaco from '../monaco'
 
 export default {
   name: 'StartCondition',
@@ -13,7 +14,7 @@ export default {
       return `<template v-if='FieldCondition_${this.formField.key}()'>`
     },
     fieldsJS: function () {
-      return this.editor.fieldsJsonDefault;
+      return this.editor.fieldsJsonDefault
     }
   },
   watch: {
@@ -26,12 +27,7 @@ export default {
     },
     fieldsJS: {
       handler (val) {
-        if(window.civica_monacofileDispose) {
-          window.civica_monacofileDispose.dispose()
-        }
-        window.civica_monacofileDispose = window.monaco.languages.typescript.javascriptDefaults
-        .addExtraLib('var fields = ' + this.editor.fieldsJsonDefault,
-        'filename/facts.d.ts');
+        monaco.addFieldsVar(val)
       }
     }
   },
@@ -41,13 +37,8 @@ export default {
     }
   },
   methods: {
-    monacoMounted: function (editor){
-      if(window.civica_monacofileDispose) {
-        window.civica_monacofileDispose.dispose()
-      }
-      window.civica_monacofileDispose = window.monaco.languages.typescript.javascriptDefaults
-        .addExtraLib('var fields = ' + this.editor.fieldsJsonDefault,
-        'filename/facts.d.ts');
+    monacoMounted: function (editor) {
+      monaco.addFieldsVar(this.editor.fieldsJsonDefault)
     }
   }
 }

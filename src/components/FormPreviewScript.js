@@ -39,7 +39,7 @@ export default {
   },
   computed: {
     // Gets the computed stuff (conditions etc) needed for the view
-    methodsJson: function() {
+    methodsJson: function () {
       var i = 0
       var ret = '{\n'
       for (i = 0; i < this.editor.formFields.length; i++) {
@@ -80,17 +80,17 @@ export default {
     <div id="app">
       <form onsubmit="return submitForm(event)" class="container-fluid">`
       for (i = 0; i < this.editor.formFields.length; i++) {
-        if(this.editor.formFields[i].show) {
+        if (this.editor.formFields[i].show) {
           html = html + `
       <div class="row">
         <div class="col-md-12">`
-          }
-          html = html + this.editor.formFields[i].formElement
-          if(this.editor.formFields[i].show) {
-            html = html + `
+        }
+        html = html + this.editor.formFields[i].formElement
+        if (this.editor.formFields[i].show) {
+          html = html + `
         </div>
       </div>`
-          }
+        }
       }
       if (!this.readOnly) {
         html = html + `

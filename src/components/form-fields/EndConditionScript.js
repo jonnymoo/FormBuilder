@@ -1,4 +1,3 @@
-import htmlEncode from '@/util/HtmlEncode'
 export default {
   name: 'EndCondition',
   props: ['formField', 'editor'],
@@ -8,7 +7,7 @@ export default {
       return `</template>`
     }
   },
-  watch: { 
+  watch: {
     formElement: {
       immediate: true,
       handler (val) {

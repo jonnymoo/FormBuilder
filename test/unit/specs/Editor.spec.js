@@ -156,14 +156,14 @@ describe('Editor.vue', () => {
     // Given a editor, when I have named fields
     const editor = shallow(Editor)
     
-    editor.vm.formFields =  [
-        {
-          name: "MyName"
-        },
-        {
-          name: "MyName2"
-        }
-      ]
+      editor.vm.formFields =  [
+          {
+            name: "MyName"
+          },
+          {
+            name: "MyName2"
+          }
+        ]
 
     // I expect it to be in the default json
     expect(editor.vm.fieldsJsonDefault).toContain('"MyName": \'\'')

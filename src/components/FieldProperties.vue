@@ -27,7 +27,7 @@ export default {
     EndCondition
   },
   name: 'FieldProperties',
-  props: ['formFields', "editor"],
+  props: ['formFields', 'editor'],
   data () {
     return {
     }
