@@ -72,16 +72,23 @@ export default {
     },
     // Add a new form field item
     addFormItem: function (fieldType) {
-      // Add the field to the list of fields
+      var i = 0
       var field = FieldTypes.clone(fieldType)
-      field.selected = true
       // Add the field in the current list
       var formFields = this.getCurrentList()
       // No current list?  Use top level
       if (formFields === null) {
         formFields = this.formFields
       }
-      formFields.push(field)
+
+      // Add it after the currently selected item
+      for (i = 0; i < formFields.length; i++) {
+        if (formFields[i].selected) {
+          break
+        }
+      }
+      
+      formFields.splice(i + 1, 0, field)
       this.selectField(field.key)
     },
     // Get the form field list that is current (i.e. if a condition or repeated section is selected - then get the sub form fields)
@@ -158,8 +165,14 @@ export default {
       }
       for (i = 0; i < fields.length; i++) {
         if (fields[i].key === field.key) {
-          // found it - clone the clipboard and put it after this
-          fields.splice(i + 1, 0, FieldTypes.clone(this.clipboard.field))
+          // found it - clone the clipboard
+          // if we have children - put it there
+          if (fields[i].formFields) {
+            fields[i].formFields.splice(0, 0, FieldTypes.clone(this.clipboard.field))
+          } else {
+            // Stick if after this one
+            fields.splice(i + 1, 0, FieldTypes.clone(this.clipboard.field))
+          }
           return true
         }
         if (fields[i].formFields) {

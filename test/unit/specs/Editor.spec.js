@@ -46,6 +46,47 @@ describe('Editor.vue', () => {
     expect(editor.vm.formFields[0].selected).toEqual(true);
   });
 
+  test("when I add a row I expect it to be added next the the selected one", () => {
+    // Given an editor
+    const editor = shallow(Editor);
+    
+    // When the addtext input is clicked
+    const button = editor.findAll('button').wrappers.filter( x => x.text() === "Text Area")[0]
+  
+    button.element.click();
+    button.element.click();
+    editor.vm.formFields[0].selected = true
+    editor.vm.formFields[1].selected = false
+    button.element.click();
+    
+    // Expect the second item to be the selected one now
+
+    expect(editor.vm.formFields[0].selected).toEqual(false);
+    expect(editor.vm.formFields[1].selected).toEqual(true);
+    expect(editor.vm.formFields[2].selected).toEqual(false);
+  });
+
+  test("when I add a row I expect it to be added to the end if none selected", () => {
+    // Given an editor
+    const editor = shallow(Editor);
+    
+    // When the addtext input is clicked
+    const button = editor.findAll('button').wrappers.filter( x => x.text() === "Text Area")[0]
+  
+    button.element.click();
+    button.element.click();
+    editor.vm.formFields[0].selected = false
+    editor.vm.formFields[1].selected = false
+    button.element.click();
+    
+    // Expect the second item to be the selected one now
+
+    expect(editor.vm.formFields[0].selected).toEqual(false);
+    expect(editor.vm.formFields[1].selected).toEqual(false);
+    expect(editor.vm.formFields[2].selected).toEqual(true);
+  });
+
+
   test("when I add two rows I expect the last one to be selected", () => {
     // Given an editor
     const editor = shallow(Editor);
@@ -503,5 +544,31 @@ describe('Editor.vue', () => {
     expect(editor.vm.formFields[1].formFields.length).toEqual(2)
   });
 
+  test('When I paste a field onto a field with sub fields 2 I expect a the field to be inserted in the sub fields list', () => {
+    // Given a editor, when I paste a field
+    const editor = shallow(Editor)
+    
+    editor.vm.formFields =  [
+      {
+        key: "a",
+        formFields: [
+          {
+            key: "c"
+          }
+        ]
+      },
+      {
+        type: "test",
+        key: "b"
+      }
+    ]
 
+    editor.vm.copy(editor.vm.formFields[1])
+    editor.vm.paste(editor.vm.formFields[0])
+
+    // I expect it to be in pasted at the end on level 2
+    expect(editor.vm.formFields.length).toEqual(2)
+    expect(editor.vm.formFields[0].formFields.length).toEqual(2)
+    expect(editor.vm.formFields[0].formFields[0].type).toEqual("test")
+  });
 })

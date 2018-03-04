@@ -6,7 +6,7 @@
         v-bind:class="{ selected: field.selected }"
         tabindex="0"
         class="editor-field"
-        v-on:focus="editor.selectField(field.key)">
+        v-on:focus="$nextTick(() => { editor.selectField(field.key) })">
       <div class="editor-buttons">
         <div>
           <span class="btn btn-sm" role="button" title="move"><i class="fas fa-arrows-alt"></i></span>

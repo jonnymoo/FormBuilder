@@ -127,7 +127,6 @@ export default {
   methods: {
     setDefault: function () {
       var json = '{' + this.editor.fieldsJson(this.editor.formFields) + '}'
-      console.log(json)
       this.fieldsJson = JSON.stringify(JSON.parse(json), undefined, 2)
     }
   }
