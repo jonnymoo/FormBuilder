@@ -25,7 +25,11 @@ export default {
       // Field types
       fieldTypes: FieldTypesList,
       // submit text
-      submitText: 'Submit'
+      submitText: 'Submit',
+      // Clipboard
+      clipboard: {
+        field: null
+      }
     }
   },
   computed: {
@@ -69,7 +73,7 @@ export default {
     // Add a new form field item
     addFormItem: function (fieldType) {
       // Add the field to the list of fields
-      var field = FieldTypes.CreateInstance(fieldType)
+      var field = FieldTypes.clone(fieldType)
       field.selected = true
       // Add the field in the current list
       var formFields = this.getCurrentList()
@@ -135,6 +139,59 @@ export default {
         }
       }
       return json
+    },
+    // Put a clone of the field into the clipboard
+    copy: function (field) {
+      this.clipboard.field = field
+    },
+    // Put the field into the clipboard and remove from any list
+    cut: function (field) {
+      this.clipboard.field = field
+      this.remove(field)
+    },
+    // Paste the clip board next to the field
+    paste: function (field, fields) {
+      var i = 0
+      // Use form fields if list not passed in
+      if (fields === undefined) {
+        fields = this.formFields
+      }
+      for (i = 0; i < fields.length; i++) {
+        if (fields[i].key === field.key) {
+          // found it - clone the clipboard and put it after this
+          fields.splice(i + 1, 0, FieldTypes.clone(this.clipboard.field))
+          return true
+        }
+        if (fields[i].formFields) {
+          // Recurse
+          if (this.paste(field, fields[i].formFields)) {
+            return true
+          }
+        }
+      }
+      // Not found
+      return false
+    },
+    // Remove an item from a list - returns true if removed
+    remove: function (field, fields) {
+      var i = 0
+      if (fields === undefined) {
+        fields = this.formFields
+      }
+      for (i = 0; i < fields.length; i++) {
+        if (fields[i].key === field.key) {
+          // Found - remove
+          fields.splice(i, 1)
+          return true
+        }
+        // Recurse
+        if (fields[i].formFields) {
+          if (this.remove(field, fields[i].formFields)) {
+            return true
+          }
+        }
+      }
+      return false
     }
   }
 }

@@ -343,5 +343,165 @@ describe('Editor.vue', () => {
     expect(editor.vm.fieldsJsonDefault).toContain('"test2": "test2"')
   });
 
+  test('When I copy a field I expect it in my clipboard', () => {
+    // Given a editor, when I copy a field
+    const editor = shallow(Editor)
+    
+    editor.vm.formFields =  [
+      {
+        key: "a"
+      },
+      {
+        key: "b"
+      }
+    ]
+
+    editor.vm.copy(editor.vm.formFields[0])
+
+    // I expect it in the clip board
+    expect(editor.vm.clipboard.field.key).toEqual('a')
+  });
+
+  test('When I cut a field I expect it in my clipboard', () => {
+    // Given a editor, when I cut a field
+    const editor = shallow(Editor)
+    
+    editor.vm.formFields =  [
+      {
+        key: "a"
+      },
+      {
+        key: "b"
+      }
+    ]
+
+    editor.vm.cut(editor.vm.formFields[0])
+
+    // I expect it in the clip board
+    expect(editor.vm.clipboard.field.key).toEqual('a')
+  });
+
+  test('When I cut a field I expect it to be removed', () => {
+    // Given a editor, when I cut a field
+    const editor = shallow(Editor)
+    
+    editor.vm.formFields =  [
+      {
+        key: "a"
+      },
+      {
+        key: "b"
+      }
+    ]
+
+    editor.vm.cut(editor.vm.formFields[0])
+
+    // I expect it to be removed
+    expect(editor.vm.formFields.length).toEqual(1)
+    expect(editor.vm.formFields[0].key).toEqual('b')
+  });
+  
+  test('When I cut a field at level 2 I expect it to be removed', () => {
+    // Given a editor, when I cut from level 2
+    const editor = shallow(Editor)
+    
+    editor.vm.formFields =  [
+      {
+        key: "a",
+        formFields: [
+          {
+            key: "c"
+          }
+        ]
+      },
+      {
+        key: "b",
+        formFields: [
+          {
+            key: "d"
+          }
+        ]
+      }
+    ]
+
+    editor.vm.cut(editor.vm.formFields[1].formFields[0])
+
+    // I expect it to be removed
+    expect(editor.vm.formFields.length).toEqual(2)
+    expect(editor.vm.formFields[0].formFields.length).toEqual(1)
+    expect(editor.vm.formFields[1].formFields.length).toEqual(0)
+  });
+
+  test('When I paste a field I expect a the field to be inserted', () => {
+    // Given a editor, when I paste a field
+    const editor = shallow(Editor)
+    
+    editor.vm.formFields =  [
+      {
+        key: "a"
+      },
+      {
+        key: "b"
+      }
+    ]
+
+    editor.vm.copy(editor.vm.formFields[0])
+    editor.vm.paste(editor.vm.formFields[1])
+
+    // I expect it to be in pasted at the end
+    expect(editor.vm.formFields.length).toEqual(3)
+  });
+
+  test('When I paste a field I expect a the field to be inserted with a new key', () => {
+    // Given a editor, when I paste a field
+    const editor = shallow(Editor)
+    
+    editor.vm.formFields =  [
+      {
+        key: "a"
+      },
+      {
+        key: "b"
+      }
+    ]
+
+    editor.vm.copy(editor.vm.formFields[0])
+    editor.vm.paste(editor.vm.formFields[1])
+
+    // I expect it to be in pasted at the end with a new key
+    expect(editor.vm.formFields[2].key).not.toEqual("a")
+  });
+
+  test('When I paste a field on level 2 I expect a the field to be inserted', () => {
+    // Given a editor, when I paste a field
+    const editor = shallow(Editor)
+    
+    editor.vm.formFields =  [
+      {
+        key: "a",
+        formFields: [
+          {
+            key: "c"
+          }
+        ]
+      },
+      {
+        key: "b",
+        formFields: [
+          {
+            key: "d"
+          }
+        ]
+      }
+    ]
+
+    editor.vm.copy(editor.vm.formFields[0])
+    editor.vm.paste(editor.vm.formFields[1].formFields[0])
+
+    // I expect it to be in pasted at the end on level 2
+    expect(editor.vm.formFields.length).toEqual(2)
+    expect(editor.vm.formFields[1].formFields.length).toEqual(2)
+  });
+
 
 })
