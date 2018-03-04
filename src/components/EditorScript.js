@@ -87,7 +87,7 @@ export default {
           break
         }
       }
-      
+
       formFields.splice(i + 1, 0, field)
       this.selectField(field.key)
     },
