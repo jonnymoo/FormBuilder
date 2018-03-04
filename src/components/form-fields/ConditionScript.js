@@ -2,7 +2,7 @@ import MonacoEditor from 'vue-monaco'
 import monaco from '../monaco'
 
 export default {
-  name: 'StartCondition',
+  name: 'Condition',
   props: ['formField', 'editor'],
   components: {
     MonacoEditor
@@ -10,11 +10,17 @@ export default {
   computed: {
     formElement: function () {
       // Returns the html required for a text input control
-
-      return `<template v-if='FieldCondition_${this.formField.key}()'>`
+      var ret = `<template v-if='FieldCondition_${this.formField.key}()'>`
+      ret += this.editor.formHtml(this.formField.formFields)
+      ret += '</template>'
+      return ret
     },
     fieldsJS: function () {
       return this.editor.fieldsJsonDefault
+    },
+    // The json for a condition is the json for all the fields under the condition
+    jsonDefault: function () {
+      return this.editor.fieldsJson(this.formField.formFields)
     }
   },
   watch: {
@@ -29,11 +35,12 @@ export default {
       handler (val) {
         monaco.addFieldsVar(val)
       }
-    }
-  },
-  data () {
-    return {
-      fileDispose: null
+    },
+    jsonDefault: {
+      immediate: true,
+      handler (val) {
+        this.formField.jsonDefault = val
+      }
     }
   },
   methods: {

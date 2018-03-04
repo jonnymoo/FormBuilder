@@ -92,7 +92,7 @@
             id="fields-editor"
             role="tabpanel"
             aria-labelledby="fields-editor-tab">
-          <FieldsEditor :editor="this"></FieldsEditor>
+          <FieldsEditor :editor="this" :form="this"></FieldsEditor>
         </div>
         <div v-bind:class="{ active: previewTabActive, show: previewTabActive }"
             class="tab-pane fade"

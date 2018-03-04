@@ -19,6 +19,9 @@ export default {
                (this.formField.validationMessage ? ` title="${htmlEncode(this.formField.validationMessage)}"` : '') +
                `/> 
       </div>`
+    },
+    jsonDefault: function () {
+      return `"${this.formField.name}": ""`
     }
   },
   watch: {
@@ -27,6 +30,12 @@ export default {
       handler (val) {
         // Put the control html onto the formField
         this.formField.formElement = val
+      }
+    },
+    jsonDefault: {
+      immediate: true,
+      handler (val) {
+        this.formField.jsonDefault = val
       }
     }
   },

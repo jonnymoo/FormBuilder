@@ -12,7 +12,8 @@ describe('Given a FormPreview', () => {
             {
               formElement: "MyElementStuff"
             }
-          ]
+          ],
+          formHtml: () => {}
         }
       }
     });    
@@ -20,16 +21,13 @@ describe('Given a FormPreview', () => {
     expect(preview.findAll('iframe').length).toEqual(1)
   });
 
-  test('When I have a form element I expect it to be in the iframe', () => {
+  test('When I have a form html I expect it to be in the iframe', () => {
     // Given a preview, when I have a form element
     const preview = shallow(FormPreview, {
       propsData: {
         editor: {
-          formFields: [
-            {
-              formElement: "MyElementStuff"
-            }
-          ]
+          formFields: [],
+          formHtml: () => { return "MyElementStuff"}
         }
       }
     });
@@ -49,7 +47,8 @@ describe('Given a FormPreview', () => {
             }
             
           ],
-          submitText: "Test Submit"
+          submitText: "Test Submit",
+          formHtml: () => {}
         }
       }
     });
@@ -69,7 +68,8 @@ describe('Given a FormPreview', () => {
               name: "MyName"
             }
           ],
-          fieldsJsonDefault: "test"
+          fieldsJson: () => {return '"test": "test"'},
+          formHtml: () => {}
         }
       }
     });
@@ -78,7 +78,7 @@ describe('Given a FormPreview', () => {
     preview.vm.setDefault();
 
     // I expect it to be copied to the fields json
-    expect(preview.vm.fieldsJson).toEqual("test")
+    expect(preview.vm.fieldsJson).toContain("test")
   });
 
   test('When I have fields with conditions I expect them in my methods json', () => {
@@ -97,7 +97,8 @@ describe('Given a FormPreview', () => {
             }
 
           ],
-          fieldsJsonDefault: "test"
+          fieldsJsonDefault: "test",
+          formHtml: () => {}
         }
       }
     });
@@ -122,59 +123,14 @@ describe('Given a FormPreview', () => {
             }
 
           ],
-          fieldsJsonDefault: "test"
+          fieldsJsonDefault: "test",
+          formHtml: () => {}
         }
       }
     });
     
     // I expect it to be copied to the fields json
     expect(preview.vm.methodsJson).toContain("return ( true )")
-  });
-
-  test('When I fields which are shown I expect them to have a row and column in the preview', () => {
-    // Given a preview
-    const preview = shallow(FormPreview, {
-      propsData: {
-        editor: {
-          formFields: [
-            {
-              name: "MyName",
-              condition: "test",
-              show: true
-            }
-          ]
-        }
-      }
-    });
-    
-    preview.vm.readOnly = true
-    // I expect it to be copied to the fields json
-    expect(preview.vm.preview).toContain('<div class="row">')
-    expect(preview.vm.preview).toContain('<div class="col-md-12">')
-
-  });
-
-  test('When I fields which are not shown I expect them to not have a row and column in the preview', () => {
-    // Given a preview
-    const preview = shallow(FormPreview, {
-      propsData: {
-        editor: {
-          formFields: [
-            {
-              name: "MyName",
-              condition: "test",
-              show: false
-            }
-          ]
-        }
-      }
-    });
-    
-    preview.vm.readOnly = true
-    // I expect it to be copied to the fields json
-    expect(preview.vm.preview).not.toContain('<div class="row">')
-    expect(preview.vm.preview).not.toContain('<div class="col-md-12">')
-
   });
 
 
@@ -187,7 +143,8 @@ describe('Given a FormPreview', () => {
             {
               name: "MyName"
             }
-          ]
+          ],
+          formHtml: () => {}
         }
       }
     });

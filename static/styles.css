@@ -14,7 +14,7 @@ div#app {
 
 .selected {
     background-color: #f1f9ff; 
-    border-radius: 5px 0 0 5px;
+    border-radius: 5px;
 }
 
 iframe {
@@ -36,6 +36,9 @@ iframe {
 /* Fields editor */
 .editor-field {
   padding: 15px;
+  margin-top: 5px;
+  border: solid #AAAAAA 1px;
+  border-radius: 5px;
 }
 
 .editor-field > div {
@@ -44,12 +47,8 @@ iframe {
 
 .editor-buttons {
   height: 100%;
-  vertical-align: middle;
+  vertical-align: top;
   padding-right: 15px;
-}
-
-.editor-form-element {
-  width: 75%;
 }
 
 .field-type-buttons button {
@@ -66,4 +65,10 @@ iframe {
 .editor {
   min-height: 300px;
   border: 1px solid #DDDDDD;
+}
+
+/* Draggable */
+
+.dragArea {
+  min-height: 80px;
 }

@@ -3,32 +3,28 @@ export default [
   {
     type: 'TextInput',
     desc: 'Text Input',
-    show: true
+    formFields: null
   },
   {
     type: 'TextArea',
     desc: 'Text Area',
-    show: true
+    formFields: null
   },
   {
     type: 'MarkDown',
     desc: 'MarkDown',
-    show: true
+    formFields: null
   },
   {
-    type: ''
+    type: 'Condition',
+    desc: 'Condition',
+    formFields: []
   },
   {
-    type: 'StartCondition',
-    desc: 'Start Condition',
-    show: false
-  },
-  {
-    type: 'EndCondition',
-    desc: 'End Condition',
-    show: false
+    type: 'RepeatingSection',
+    desc: 'Repeating Section',
+    formFields: []
   }
-
 ]
 
 export function CreateInstance (fieldType) {
@@ -40,8 +36,9 @@ export function CreateInstance (fieldType) {
     }),
     type: fieldType.type,
     desc: fieldType.desc,
-    show: fieldType.show,
+    formFields: fieldType.formFields,
     name: null,
+    jsonDefault: null,
     label: null,
     placeHolder: null,
     content: null,
@@ -52,7 +49,9 @@ export function CreateInstance (fieldType) {
     rows: null,
     required: false,
     validationPattern: null,
-    validationMessage: null
+    validationMessage: null,
+    addButtonText: null,
+    removeButtonText: null
   }
 
   // Set the specific defaults per field type - this need to be moved into the view components as an export somehow

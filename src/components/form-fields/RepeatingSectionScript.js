@@ -1,10 +1,12 @@
 export default {
-  name: 'EndCondition',
+  name: 'RepeatingSection',
   props: ['formField', 'editor'],
   computed: {
     formElement: function () {
-      // Returns the html required for a text input control
-      return `</template>`
+      // Returns the html required for a repeating section
+      var ret = `<div id="accordion">
+      </div>`
+      return ret
     }
   },
   watch: {
@@ -15,11 +17,5 @@ export default {
         this.formField.formElement = val
       }
     }
-  },
-  data () {
-    return {
-    }
-  },
-  methods: {
   }
 }

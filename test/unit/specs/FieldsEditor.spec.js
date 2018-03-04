@@ -4,22 +4,25 @@ import {mount, shallow} from 'vue-test-utils'
 
 describe('Given a FieldsEditor', () => {
    test('When I delete from the list I expect it to be removed', () => {
-    // Given a preview
+    // Given a fields editor
+    var form = {
+      formFields: [
+        {
+          key: 1
+        },
+        {
+          key: 2
+        },
+        {
+          key: 3
+        }
+      ]
+    }
+
     const fieldsEditor = shallow(FieldsEditor, {
       "propsData": {
-        editor: {
-          formFields: [
-            {
-              key: 1
-            },
-            {
-              key: 2
-            },
-            {
-              key: 3
-            }
-          ]
-        }
+        editor: form,
+        form: form
       }
     });
 
@@ -33,22 +36,25 @@ describe('Given a FieldsEditor', () => {
   });
 
   test('When I move an item up I expect it to be moved', () => {
-    // Given a preview
+    // Given a fields editor
+    var form = {
+      formFields: [
+        {
+          key: 1
+        },
+        {
+          key: 2
+        },
+        {
+          key: 3
+        }
+      ]
+    }
+
     const fieldsEditor = shallow(FieldsEditor, {
       "propsData": {
-        editor: {
-          formFields: [
-            {
-              key: 1
-            },
-            {
-              key: 2
-            },
-            {
-              key: 3
-            }
-          ]
-        }
+        editor: form,
+        form: form
       }
     });
 
@@ -63,22 +69,25 @@ describe('Given a FieldsEditor', () => {
   });
 
   test('When I move and item down I expect it to be moved', () => {
-    // Given a preview
+    // Given a fields editor
+    var form = {
+      formFields: [
+        {
+          key: 1
+        },
+        {
+          key: 2
+        },
+        {
+          key: 3
+        }
+      ]
+    }
+
     const fieldsEditor = shallow(FieldsEditor, {
       "propsData": {
-        editor: {
-          formFields: [
-            {
-              key: 1
-            },
-            {
-              key: 2
-            },
-            {
-              key: 3
-            }
-          ]
-        }
+        editor: form,
+        form: form
       }
     });
 

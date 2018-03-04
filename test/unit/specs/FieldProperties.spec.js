@@ -11,21 +11,58 @@ describe('Given field properties', () => {
         formFields: [
           {
             type: 'TextInput',
-            selected: true
+            selected: false,
+            formFields: null
           },
           {
             type: 'TextArea',
-            selected: true
+            selected: false,
+            formFields: null
           },
           {
             type: 'MarkDown',
-            selected: true
+            selected: false,
+            formFields: null
           }
         ]
       }
     });
     
     // When the addtext input is clicked
-    expect(fieldProperties.findAll('div > div').length).toEqual(3)
+    expect(fieldProperties.findAll('div.fieldProperty').length).toEqual(3)
+  });
+
+  test("when form fields with sub form fields are passed they are added to the form", () => {
+    // Given a field properties
+    const fieldProperties = shallow(FieldProperties, {
+      "propsData": {
+        formFields: [
+          {
+            type: 'TextInput',
+            selected: false,
+            formFields: [
+              {
+                type: 'TextInput',
+                selected: false,
+                formFields: null
+              }
+            ]
+          },
+          {
+            type: 'TextArea',
+            selected: false,
+            formFields: null
+          },
+          {
+            type: 'MarkDown',
+            selected: false,
+            formFields: null
+          }
+        ]
+      }
+    });
+    
+    // When the addtext input is clicked
+    expect(fieldProperties.findAll('div.fieldProperty').length).toEqual(4)
   });
 })

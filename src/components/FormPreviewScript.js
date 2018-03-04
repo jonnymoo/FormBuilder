@@ -60,7 +60,6 @@ export default {
     },
     // Returns the html for the form
     preview: function () {
-      var i = 0
       var html = `<!doctype html>
 <html lang="en">
   <head>
@@ -79,19 +78,7 @@ export default {
   <body>
     <div id="app">
       <form onsubmit="return submitForm(event)" class="container-fluid">`
-      for (i = 0; i < this.editor.formFields.length; i++) {
-        if (this.editor.formFields[i].show) {
-          html = html + `
-      <div class="row">
-        <div class="col-md-12">`
-        }
-        html = html + this.editor.formFields[i].formElement
-        if (this.editor.formFields[i].show) {
-          html = html + `
-        </div>
-      </div>`
-        }
-      }
+      html = html + this.editor.formHtml(this.editor.formFields)
       if (!this.readOnly) {
         html = html + `
       <div class="row">
@@ -139,7 +126,9 @@ export default {
   },
   methods: {
     setDefault: function () {
-      this.fieldsJson = this.editor.fieldsJsonDefault
+      var json = '{' + this.editor.fieldsJson(this.editor.formFields) + '}'
+      console.log(json)
+      this.fieldsJson = JSON.stringify(JSON.parse(json), undefined, 2)
     }
   }
 }

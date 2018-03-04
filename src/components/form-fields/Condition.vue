@@ -1,4 +1,4 @@
-<!-- The properties form for a start element -->
+<!-- The properties form for a condition -->
 <template>
   <form>
     <div class="form-group">
@@ -17,6 +17,6 @@
 
 <script src="monaco-editor/min/vs/loader.js"></script>
 <script>
-import StartConditionScript from '@/components/form-fields/StartConditionScript'
-export default StartConditionScript
+import ConditionScript from '@/components/form-fields/ConditionScript'
+export default ConditionScript
 </script>
