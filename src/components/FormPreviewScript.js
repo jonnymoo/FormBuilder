@@ -133,15 +133,19 @@ export default {
         }`)
         // Add buttons (repeating fields)
         if (field.addButtonText) {
+
           ret.push(`        'Add_${field.key}': function (e, items) {
             var i = 0
             e.preventDefault()
             for (i = 0; i < items.length; i++) {
               items[i].show = false
             }
-            items.push({
-              show: true
-            })
+
+            var item = {
+              ${this.editor.fieldsJson(field.formFields)}
+            }
+            item.show = true
+            items.push(item)
             return false
           }`)
         }

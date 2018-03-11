@@ -219,6 +219,39 @@ describe('Given a FormPreview', () => {
     expect(preview.vm.methodsJson()[1]).toContain("Add_abc")
   });
 
+  test('When I have a field with an add button I expect the add function to default the item fields', () => {
+    // Given a preview
+    const preview = shallow(FormPreview, {
+      propsData: {
+        editor: {
+          formFields: [
+            {
+              key: "abc",
+              name: "",
+              condition: "",
+              addButtonText: "add",
+              formFields: [
+                {
+                  name: "testField",
+                  jsonDefault: '"testField": ""'
+                }
+              ]
+            }
+          ],
+          fieldsJsonDefault: "test",
+          formHtml: () => {},
+          fieldsJson: (formFields) => { return formFields[0].jsonDefault}
+        }
+      }
+    });
+    
+    // I expect it to be copied to the fields json
+    expect(preview.vm.methodsJson()[1]).toContain("Add_abc")
+    expect(preview.vm.methodsJson()[1]).toContain("var item = ")
+    expect(preview.vm.methodsJson()[1]).toContain('"testField": ""')
+
+  });
+
   test('When I have a field with an remove button I expect the remove function in my methods', () => {
     // Given a preview
     const preview = shallow(FormPreview, {
