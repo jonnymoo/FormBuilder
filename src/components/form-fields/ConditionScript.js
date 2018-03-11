@@ -3,14 +3,14 @@ import monaco from '../monaco'
 
 export default {
   name: 'Condition',
-  props: ['formField', 'editor'],
+  props: ['formField', 'editor', 'modelName', 'model'],
   components: {
     MonacoEditor
   },
   computed: {
     formElement: function () {
       // Returns the html required for a text input control
-      var ret = `<template v-if='FieldCondition_${this.formField.key}()'>`
+      var ret = `<template v-if='FieldCondition_${this.formField.key}(this.FormFields, ${this.modelName})'>`
       ret += this.editor.formHtml(this.formField.formFields)
       ret += '</template>'
       return ret
@@ -33,7 +33,7 @@ export default {
     },
     fieldsJS: {
       handler (val) {
-        monaco.addFieldsVar(val)
+        monaco.addFieldsVar(val, this.modelName, this.model)
       }
     },
     jsonDefault: {
@@ -44,8 +44,8 @@ export default {
     }
   },
   methods: {
-    monacoMounted: function (editor) {
-      monaco.addFieldsVar(this.editor.fieldsJsonDefault)
+    monacoMounted: function () {
+      monaco.addFieldsVar(this.editor.fieldsJsonDefault, this.modelName, this.model)
     }
   }
 }

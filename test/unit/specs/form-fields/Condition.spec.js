@@ -8,6 +8,7 @@ jest.mock('@/components/monaco', () => ({
   addFieldsVar: jest.fn()
 }));
 
+
 describe('Given a condition', () => {
   test("I expect it to have a if template", () => {
     // Given a start condition
@@ -26,7 +27,8 @@ describe('Given a condition', () => {
     expect(formField.formElement).toContain('<template v-if');
   });
 
-  test("When I change the fields json I expect it to update the field var for the monaco intellisense", () => {
+test("When I change the fields json I expect it to update the field var for the monaco intellisense", () => {
+
     // Given a start condition
     var formField = {
       formFields:  []
@@ -40,7 +42,12 @@ describe('Given a condition', () => {
     ]
 
     const wrapper = shallow(Condition, {
-      propsData: { formField, editor }
+      propsData: { 
+        formField: formField, 
+        editor: editor,
+        modelName: "model",
+        model: "{}"
+       }
     })
 
     editor.formFields =  [
@@ -54,31 +61,33 @@ describe('Given a condition', () => {
     //wrapper.vm.fieldsJS = "test2"
     //I expect it to update the field var for the monaco intellisense
     wrapper.vm.$nextTick(() => {
-      expect(monaco.addFieldsVar).toBeCalledWith('{"test2": ""}');
+      expect(monaco.addFieldsVar).toBeCalledWith('{"test2": ""}', 'model', '{}');
     })
   });
 
   test("When the monaco editor is mounted I expect it to update the field var for the monaco intellisense", () => {
+    
     // Given a start condition
     var formField = {
       formFields:  []
     }
-    var editor = shallow(Editor).vm
-    editor.formFields =  [
-      {
-        jsonDefault: '"test": ""'
-      }
-    ]
+    
     const wrapper = shallow(Condition, {
-      propsData: { formField, editor }
+      propsData: { 
+        formField: formField, 
+        editor: {
+          fieldsJsonDefault: '{"test": ""}',
+          fieldsJson: () => {},
+          formHtml: () => {}
+        },
+        modelName: "modelName",
+        model: '{"test2": ""}' 
+      }
     })
    
     // When the monaco edior is mounted
-    wrapper.vm.monacoMounted(editor)
-    
-    //I expect it to update the field var for the monaco intellisense
-    expect(monaco.addFieldsVar).toBeCalledWith('{"test": ""}');
-  });
+    wrapper.vm.monacoMounted()
 
-  
+    expect(monaco.addFieldsVar).toBeCalledWith('{"test": ""}', "modelName", '{"test2": ""}');
+  });
 })

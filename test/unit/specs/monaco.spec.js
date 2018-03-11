@@ -21,9 +21,10 @@ describe('Given a monaco help', () => {
         }
       }
     }
-    monaco.addFieldsVar("test")
+    monaco.addFieldsVar("test", "model", "test2")
 
-    expect(addExtraLibParams.json).toEqual("var fields = test")
+    expect(addExtraLibParams.json).toContain("var fields = test")
+    expect(addExtraLibParams.json).toContain("var model = test2")
     expect(addExtraLibParams.fileName).toEqual("filename/fields.d.ts")
 
   });

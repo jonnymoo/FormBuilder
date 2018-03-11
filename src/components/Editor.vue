@@ -57,7 +57,7 @@
             id="properties"
             role="tabpanel"
             aria-labelledby="properties-tab">
-          <FieldProperties :formFields="formFields" :editor="this"></FieldProperties>
+          <FieldProperties :formFields="formFields" :editor="this" :modelName="'FormFields'" :model="fieldsJson"></FieldProperties>
         </div>
       </div>
     </div>

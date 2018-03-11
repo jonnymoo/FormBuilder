@@ -17,7 +17,7 @@ export default {
       settingsVisible: false,
       previewVisible: true,
       HTMLSourceVisible: false,
-      fieldsJson: '{\r\n}',
+      fieldsJson: '',
       cmOptions: {
         // codemirror options
         tabSize: 4,
@@ -38,26 +38,6 @@ export default {
     }
   },
   computed: {
-    // Gets the computed stuff (conditions etc) needed for the view
-    methodsJson: function () {
-      var i = 0
-      var ret = '{\n'
-      for (i = 0; i < this.editor.formFields.length; i++) {
-        var field = this.editor.formFields[i]
-        ret = ret + `        'FieldCondition_${field.key}': function () {
-          return ( ${field.condition === '' ? 'true' : field.condition} )
-        }`
-
-        if (i !== this.editor.formFields.length - 1) {
-          ret = ret + ','
-        }
-
-        ret = ret + '\n'
-      }
-      ret = ret + '}\n'
-
-      return ret
-    },
     // Returns the html for the form
     preview: function () {
       var html = `<!doctype html>
@@ -81,13 +61,9 @@ export default {
       html = html + this.editor.formHtml(this.editor.formFields)
       if (!this.readOnly) {
         html = html + `
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="${htmlEncode(this.editor.submitText)}" />
-          </div>
-        </div>
-      </div>`
+        <div class="form-group">
+          <input type="submit" class="btn btn-primary" value="${htmlEncode(this.editor.submitText)}" />
+        </div>`
       }
       html = html + `
       </form>
@@ -99,19 +75,22 @@ export default {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <!-- Vue -->
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.14/dist/vue.js"></script>
     <script>
-      var fields = ${this.fieldsJson}
-
+      var fields = `
+      html = html + (this.fieldsJson ? this.fieldsJson : ('{' + this.editor.fieldsJson(this.editor.formFields) + '}'))
+      html = html + `
       new Vue({
         el: '#app',
         data: {
           form: {
             readOnly: ${this.readOnly}
           },
-          fields: fields
+          FormFields: fields
         },
-        methods: ${this.methodsJson}
+        methods: {
+          ${this.methodsJson().join(',\r\n')}
+        }
       })
       function submitForm(e) {
         e.preventDefault()
@@ -119,6 +98,11 @@ export default {
         return false
       }
     </script>
+    <style>
+      .btn-link {
+        white-space: inherit;
+      }
+    </style>
   </body>
 </html>`
       return html
@@ -128,6 +112,53 @@ export default {
     setDefault: function () {
       var json = '{' + this.editor.fieldsJson(this.editor.formFields) + '}'
       this.fieldsJson = JSON.stringify(JSON.parse(json), undefined, 2)
+    },
+    // Returns the a list of methods for the view (e.g. conditions)
+    methodsJson: function (formFields, modelName) {
+      if (formFields === undefined) {
+        formFields = this.editor.formFields
+      }
+
+      if (modelName === undefined) {
+        modelName = 'FormFields'
+      }
+
+      var i = 0
+      var ret = []
+      for (i = 0; i < formFields.length; i++) {
+        var field = formFields[i]
+        // Conditions methods - takes fields and a model object as parameters
+        ret.push(`        'FieldCondition_${field.key}': function (fields, ${modelName}) {
+          return ( ${field.condition === '' ? 'true' : field.condition} )
+        }`)
+        // Add buttons (repeating fields)
+        if (field.addButtonText) {
+          ret.push(`        'Add_${field.key}': function (e, items) {
+            var i = 0
+            e.preventDefault()
+            for (i = 0; i < items.length; i++) {
+              items[i].show = false
+            }
+            items.push({
+              show: true
+            })
+            return false
+          }`)
+        }
+        // Remove buttons (repeating fields)
+        if (field.removeButtonText) {
+          ret.push(`        'Remove_${field.key}': function (e, items,index) {
+            e.preventDefault()
+            items.splice(index, 1)
+            return false
+          }`)
+        }
+
+        if (field.formFields) {
+          ret = ret.concat(this.methodsJson(field.formFields, field.name ? field.name : modelName))
+        }
+      }
+      return ret
     }
   }
 }

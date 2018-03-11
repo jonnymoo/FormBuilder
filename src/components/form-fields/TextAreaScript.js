@@ -2,7 +2,7 @@ import htmlEncode from '@/util/HtmlEncode'
 
 export default {
   name: 'TextArea',
-  props: ['formField', 'editor'],
+  props: ['formField', 'editor', 'modelName', 'model'],
   computed: {
     formElement: function () {
       // Returns the html required for a text area control
@@ -14,7 +14,7 @@ export default {
                 cols="${htmlEncode(this.formField.cols)}"
                 rows="${htmlEncode(this.formField.rows)}"
                 class="form-control" ` +
-               (this.formField.name ? ` v-model="fields.${htmlEncode(this.formField.name)}" ` : '') +
+               (this.formField.name ? ` v-model="${this.modelName}.${htmlEncode(this.formField.name)}" ` : '') +
                `v-bind:readonly="form.readOnly"` +
                 (this.formField.required ? ' required' : '') +
                 (this.formField.validationPattern ? ` pattern="${htmlEncode(this.formField.validationPattern)}"` : '') +

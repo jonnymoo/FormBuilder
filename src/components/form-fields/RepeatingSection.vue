@@ -2,11 +2,11 @@
 <template>
   <form>
     <div class="form-group">
-      <label class="control-label">Label</label>
+      <label class="control-label">Header Label</label>
       <input class="form-control" type="text" v-model="formField.label"/>
     </div>
     <div class="form-group">
-      <label class="control-label">Name</label>
+      <label class="control-label">Repeating Section Name</label>
       <input class="form-control" type="text" v-model="formField.name"/>
     </div>
     <div class="form-group">

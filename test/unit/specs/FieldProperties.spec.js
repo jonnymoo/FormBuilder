@@ -36,6 +36,9 @@ describe('Given field properties', () => {
     // Given a field properties
     const fieldProperties = shallow(FieldProperties, {
       "propsData": {
+        editor: {
+          fieldsJson: () => {}
+        },
         formFields: [
           {
             type: 'TextInput',

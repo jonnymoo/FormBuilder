@@ -99,10 +99,15 @@ describe('TextInput', () => {
       name: "test"
     }
     const wrapper = shallow(TextInput, {
-      propsData: { formField }
+      propsData: { 
+        formField: formField, 
+        editor: null, 
+        modelName: "modelName", 
+        model: null 
+      }
     })
     
     // I expect the v-model flag
-    expect(formField.formElement).toContain('v-model="fields.test"');
+    expect(formField.formElement).toContain('v-model="modelName.test"');
   });
 })

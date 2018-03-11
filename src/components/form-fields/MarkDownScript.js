@@ -2,7 +2,7 @@ import marked from 'marked'
 
 export default {
   name: 'TextInput',
-  props: ['formField', 'editor'],
+  props: ['formField', 'editor', 'modelName', 'model'],
   computed: {
     formElement: function () {
       // Returns the html required for a text input control

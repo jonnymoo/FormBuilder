@@ -18,6 +18,6 @@ describe('Given a repeating section', () => {
     })
    
     // I expect it to have an if statement on a template
-    expect(formField.formElement).toContain('<div id="accordion">');
+    expect(formField.formElement).toContain('<div id="accordion');
   });
 })

@@ -13,7 +13,8 @@ describe('Given a FormPreview', () => {
               formElement: "MyElementStuff"
             }
           ],
-          formHtml: () => {}
+          formHtml: () => {},
+          fieldsJson: () => {}
         }
       }
     });    
@@ -27,7 +28,8 @@ describe('Given a FormPreview', () => {
       propsData: {
         editor: {
           formFields: [],
-          formHtml: () => { return "MyElementStuff"}
+          formHtml: () => { return "MyElementStuff"},
+          fieldsJson: () => {}
         }
       }
     });
@@ -48,7 +50,8 @@ describe('Given a FormPreview', () => {
             
           ],
           submitText: "Test Submit",
-          formHtml: () => {}
+          formHtml: () => {},
+          fieldsJson: () => {}
         }
       }
     });
@@ -98,13 +101,14 @@ describe('Given a FormPreview', () => {
 
           ],
           fieldsJsonDefault: "test",
-          formHtml: () => {}
+          formHtml: () => {},
+          fieldsJson: () => {}
         }
       }
     });
     
     // I expect it to be copied to the fields json
-    expect(preview.vm.methodsJson).toContain("return ( test )")
+    expect(preview.vm.methodsJson()[0]).toContain("return ( test )")
   });
 
   test('When I have fields with blank conditions I expect them in my methods json as return true', () => {
@@ -124,13 +128,119 @@ describe('Given a FormPreview', () => {
 
           ],
           fieldsJsonDefault: "test",
-          formHtml: () => {}
+          formHtml: () => {},
+          fieldsJson: () => {}
+        }
+      }
+    });
+    
+    // I expect one of my conditions to return true
+    expect(preview.vm.methodsJson()[0]).toContain("return ( test )")
+    expect(preview.vm.methodsJson()[1]).toContain("return ( true )")
+  });
+
+  test('When I have sub fields with conditions I expect them in my methods json', () => {
+    // Given a preview
+    const preview = shallow(FormPreview, {
+      propsData: {
+        editor: {
+          formFields: [
+            {
+              name: "MyName",
+              condition: "test",
+              formFields: [
+                {
+                  name: "MyName2",
+                  condition: "test2"
+                }
+              ]
+            }
+          ],
+          fieldsJsonDefault: "test",
+          formHtml: () => {},
+          fieldsJson: () => {}
         }
       }
     });
     
     // I expect it to be copied to the fields json
-    expect(preview.vm.methodsJson).toContain("return ( true )")
+    expect(preview.vm.methodsJson()[1]).toContain("return ( test2 )")
+  });
+
+  test('When I have sub fields with no name with conditions I expect the model to be passed through as FormFields', () => {
+    // Given a preview
+    const preview = shallow(FormPreview, {
+      propsData: {
+        editor: {
+          formFields: [
+            {
+              name: "",
+              condition: "test",
+              formFields: [
+                {
+                  name: "MyName2",
+                  condition: "test2"
+                }
+              ]
+            }
+          ],
+          fieldsJsonDefault: "test",
+          formHtml: () => {},
+          fieldsJson: () => {}
+        }
+      }
+    });
+    
+    // I expect it to be copied to the fields json
+    expect(preview.vm.methodsJson()[1]).toContain("function (fields, FormFields)")
+  });
+
+  test('When I have a field with an add button I expect the add function in my methods', () => {
+    // Given a preview
+    const preview = shallow(FormPreview, {
+      propsData: {
+        editor: {
+          formFields: [
+            {
+              key: "abc",
+              name: "",
+              condition: "",
+              addButtonText: "add"
+            }
+          ],
+          fieldsJsonDefault: "test",
+          formHtml: () => {},
+          fieldsJson: () => {}
+        }
+      }
+    });
+    
+    // I expect it to be copied to the fields json
+    expect(preview.vm.methodsJson()[1]).toContain("Add_abc")
+  });
+
+  test('When I have a field with an remove button I expect the remove function in my methods', () => {
+    // Given a preview
+    const preview = shallow(FormPreview, {
+      propsData: {
+        editor: {
+          formFields: [
+            {
+              key: "abc",
+              name: "",
+              condition: "",
+              removeButtonText: "remove"
+            }
+          ],
+          fieldsJsonDefault: "test",
+          formHtml: () => {},
+          fieldsJson: () => {}
+        }
+      }
+    });
+    
+    // I expect it to be copied to the fields json
+    expect(preview.vm.methodsJson()[1]).toContain("Remove_abc")
   });
 
 
@@ -144,7 +254,8 @@ describe('Given a FormPreview', () => {
               name: "MyName"
             }
           ],
-          formHtml: () => {}
+          formHtml: () => {},
+          fieldsJson: () => {}
         }
       }
     });
