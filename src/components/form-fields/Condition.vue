@@ -2,15 +2,22 @@
 <template>
   <form>
     <div class="form-group">
-      <label class="control-label">Condition</label>
+      <label class="control-label">JavaScript Condition</label>
       <monaco-editor
         ref="editor"
         class="editor"
         v-model="formField.condition"
         language="javascript"
         placeholder="Loading - please wait"
-        v-on:editorMount="monacoMounted">
+        :aria-describedby="this.formField.key+'_help'"
+        v-on:focus="monacoFocus">
       </monaco-editor>
+      <small :id="this.formField.key+'_help'" class="form-text text-muted">
+        Examples <br/>
+        fields.MyField === "test" <br/>
+        address.postCode.startsWith("LS28") <br/>
+        The last one assumes you are in a repeating section called "address"
+      </small>
     </div>
   </form>
 </template>

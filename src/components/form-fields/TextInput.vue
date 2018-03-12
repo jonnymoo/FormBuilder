@@ -25,6 +25,18 @@
       <label class="control-label">Validation message</label>
       <input class="form-control" type="text" v-model="formField.validationMessage"/>
     </div>
+    <div class="form-group">
+      <label class="control-label">Help text</label>
+      <input class="form-control" type="text" v-model="formField.help"/>
+    </div>
+    <div class="form-group">
+      <label class="control-label">Prepend text</label>
+      <input class="form-control" type="text" v-model="formField.prepend"/>
+    </div>
+    <div class="form-group">
+      <label class="control-label">Append text</label>
+      <input class="form-control" type="text" v-model="formField.append"/>
+    </div>
   </form>
 </template>
 

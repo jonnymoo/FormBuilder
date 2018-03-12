@@ -23,6 +23,10 @@ describe('Given FieldTypes', () => {
     expect(fieldType.validationMessage).toEqual(null)
     expect(fieldType.addButtonText).toEqual(null)
     expect(fieldType.removeButtonText).toEqual(null)
+    expect(fieldType.help).toEqual(null)
+    expect(fieldType.prepend).toEqual(null)
+    expect(fieldType.append).toEqual(null)
+
   });
 
   test('when I clone a new field I from an existing object expect it be populated with copies from the original', () => {
@@ -45,7 +49,10 @@ describe('Given FieldTypes', () => {
       validationMessage: 'validationMessage',
       jsonDefault: 'jsonDefault',
       addButtonText: 'addbutton',
-      removeButtonText: 'removebutton'
+      removeButtonText: 'removebutton',
+      help: 'testHelp',
+      prepend: 'testPrepend',
+      append: 'testAppend'
 
     })
 
@@ -69,6 +76,9 @@ describe('Given FieldTypes', () => {
     expect(fieldType.validationMessage).toEqual('validationMessage')
     expect(fieldType.addButtonText).toEqual('addbutton')
     expect(fieldType.removeButtonText).toEqual('removebutton')
+    expect(fieldType.help).toEqual('testHelp')
+    expect(fieldType.prepend).toEqual('testPrepend')
+    expect(fieldType.append).toEqual('testAppend')
   });
 
   test('when I clone a TextArea I expect it be populated with its own defaults', () => {

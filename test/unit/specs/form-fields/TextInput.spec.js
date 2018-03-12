@@ -110,4 +110,57 @@ describe('TextInput', () => {
     // I expect the v-model flag
     expect(formField.formElement).toContain('v-model="modelName.test"');
   });
+  test("When it is has help I expect it have the aria-describedby attribute", () => {
+    // Given a text input when it has help
+    var formField = {
+      help: "some help",
+      key: 'abc'
+    }
+    const wrapper = shallow(TextInput, {
+      propsData: { formField }
+    })
+    
+    // I expect an aria-describedby  attribute
+    expect(formField.formElement).toContain('aria-describedby="abc_help"');
+  });
+
+  test("When it is has help I expect it to have associated help", () => {
+    // Given a text input when it has help
+    var formField = {
+      help: "some help",
+      key: 'abc'
+    }
+    const wrapper = shallow(TextInput, {
+      propsData: { formField }
+    })
+    
+    // I expect the help as a 'small' element
+    expect(formField.formElement).toContain('<small id="abc_help" class="form-text text-muted">some help</small>');
+  });
+
+  test("When it is has prepend text I expect it have a prenend element in the input group", () => {
+    // Given a text input when it has prepend text
+    var formField = {
+      prepend: "prepend text"
+    }
+    const wrapper = shallow(TextInput, {
+      propsData: { formField }
+    })
+    
+    // I expect the help as a prepend element
+    expect(formField.formElement).toContain('<div class="input-group-prepend"><span class="input-group-text">prepend text</span></div>');
+  });
+
+  test("When it is has append text I expect it have a append element in the input group", () => {
+    // Given a text input when it has append text
+    var formField = {
+      append: "append text"
+    }
+    const wrapper = shallow(TextInput, {
+      propsData: { formField }
+    })
+    
+    // I expect the help as a prepend element
+    expect(formField.formElement).toContain('<div class="input-group-append"><span class="input-group-text">append text</span></div>');
+  });
 })

@@ -2,8 +2,21 @@
 <template>
   <form>
     <div class="form-group">
-      <label class="control-label">Header Label</label>
-      <input class="form-control" type="text" v-model="formField.label"/>
+      <label class="control-label"> Templated Header Label</label>
+      <monaco-editor
+        ref="editor"
+        class="editor"
+        style="min-height: 100px"
+        v-model="formField.label"
+        language="handlebars"
+        placeholder="Loading - please wait"
+        :aria-describedby="this.formField.key+'_help'"
+        v-on:focus="monacoFocus">
+      </monaco-editor>
+      <small :id="this.formField.key+'_help'" class="form-text text-muted">
+        See <a href="https://vuejs.org/v2/guide/syntax.html">"Mustache" syntax </a><br/>
+        Use the repeating section name to access fields. E.g. <span v-pre>Beneficiary - {{ beneficiary.name }}</span>
+      </small>
     </div>
     <div class="form-group">
       <label class="control-label">Repeating Section Name</label>

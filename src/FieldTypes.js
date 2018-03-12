@@ -57,6 +57,9 @@ export function clone (field) {
   newField.validationMessage = field.validationMessage === undefined ? null : field.validationMessage
   newField.addButtonText = field.addButtonText === undefined ? null : field.addButtonText
   newField.removeButtonText = field.removeButtonText === undefined ? null : field.removeButtonText
+  newField.help = field.help === undefined ? null : field.help
+  newField.prepend = field.prepend === undefined ? null : field.prepend
+  newField.append = field.append === undefined ? null : field.append
 
   if (!field.formFields) {
     newField.formFields = null

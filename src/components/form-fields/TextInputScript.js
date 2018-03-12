@@ -6,19 +6,40 @@ export default {
   computed: {
     formElement: function () {
       // Returns the html required for a text input control
-      return `<div class="form-group">
+      var ret = `<div class="form-group">
         <label for="${htmlEncode(this.formField.name)}">${htmlEncode(this.formField.label)}</label> 
-        <input type="text" id="${htmlEncode(this.formField.name)}" 
-               name="${htmlEncode(this.formField.name)}" 
-               placeholder="${htmlEncode(this.formField.placeHolder)}" 
-               class="form-control" ` +
-               (this.formField.name ? ` v-model="${this.modelName}.${htmlEncode(this.formField.name)}" ` : '') +
-               `v-bind:readonly="form.readOnly"` +
-               (this.formField.required ? ' required' : '') +
-               (this.formField.validationPattern ? ` pattern="${htmlEncode(this.formField.validationPattern)}"` : '') +
-               (this.formField.validationMessage ? ` title="${htmlEncode(this.formField.validationMessage)}"` : '') +
-               `/> 
+        <div class="input-group">`
+      if (this.formField.prepend) {
+        ret = ret + `
+          <div class="input-group-prepend"><span class="input-group-text">${htmlEncode(this.formField.prepend)}</span></div>`
+      }
+      ret = ret + `
+          <input type="text" id="${htmlEncode(this.formField.name)}" 
+              name="${htmlEncode(this.formField.name)}" 
+              placeholder="${htmlEncode(this.formField.placeHolder)}" 
+              class="form-control" ` +
+              (this.formField.name ? ` v-model="${this.modelName}.${htmlEncode(this.formField.name)}" ` : '') +
+              `v-bind:readonly="form.readOnly"` +
+              (this.formField.required ? ' required' : '') +
+              (this.formField.validationPattern ? ` pattern="${htmlEncode(this.formField.validationPattern)}"` : '') +
+              (this.formField.validationMessage ? ` title="${htmlEncode(this.formField.validationMessage)}"` : '') +
+              (this.formField.help ? ` aria-describedby="${htmlEncode(this.formField.key)}_help"` : '') +
+              `/>`
+      if (this.formField.append) {
+        ret = ret + `
+          <div class="input-group-append"><span class="input-group-text">${htmlEncode(this.formField.append)}</span></div>`
+      }
+
+      ret = ret + `
+        </div>`
+
+      if (this.formField.help) {
+        ret = ret + `
+        <small id="${htmlEncode(this.formField.key)}_help" class="form-text text-muted">${htmlEncode(this.formField.help)}</small>`
+      }
+      ret = ret + `
       </div>`
+      return ret
     },
     jsonDefault: function () {
       return `"${this.formField.name}": ""`

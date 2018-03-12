@@ -1,8 +1,13 @@
 import htmlEncode from '@/util/HtmlEncode'
+import MonacoEditor from 'vue-monaco'
+import monaco from '../monaco'
 
 export default {
   name: 'RepeatingSection',
   props: ['formField', 'editor', 'modelName', 'model'],
+  components: {
+    MonacoEditor
+  },
   computed: {
     formElement: function () {
       // Returns the html required for a repeating section
@@ -56,6 +61,11 @@ export default {
       handler (val) {
         this.formField.jsonDefault = val
       }
+    }
+  },
+  methods: {
+    monacoFocus: function () {
+      monaco.addFieldsVar(this.editor.fieldsJsonDefault, this.formField.name, '{' + this.editor.fieldsJson(this.formField.formFields) + '}')
     }
   }
 }

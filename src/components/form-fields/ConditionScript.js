@@ -15,9 +15,6 @@ export default {
       ret += '</template>'
       return ret
     },
-    fieldsJS: function () {
-      return this.editor.fieldsJsonDefault
-    },
     // The json for a condition is the json for all the fields under the condition
     jsonDefault: function () {
       return this.editor.fieldsJson(this.formField.formFields)
@@ -31,11 +28,6 @@ export default {
         this.formField.formElement = val
       }
     },
-    fieldsJS: {
-      handler (val) {
-        monaco.addFieldsVar(val, this.modelName, this.model)
-      }
-    },
     jsonDefault: {
       immediate: true,
       handler (val) {
@@ -44,7 +36,7 @@ export default {
     }
   },
   methods: {
-    monacoMounted: function () {
+    monacoFocus: function () {
       monaco.addFieldsVar(this.editor.fieldsJsonDefault, this.modelName, this.model)
     }
   }

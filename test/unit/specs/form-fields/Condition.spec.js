@@ -27,43 +27,6 @@ describe('Given a condition', () => {
     expect(formField.formElement).toContain('<template v-if');
   });
 
-test("When I change the fields json I expect it to update the field var for the monaco intellisense", () => {
-
-    // Given a start condition
-    var formField = {
-      formFields:  []
-    }
-    var editor = shallow(Editor).vm
-
-    editor.formFields =  [
-      {
-        jsonDefault: '"test": ""'
-      }
-    ]
-
-    const wrapper = shallow(Condition, {
-      propsData: { 
-        formField: formField, 
-        editor: editor,
-        modelName: "model",
-        model: "{}"
-       }
-    })
-
-    editor.formFields =  [
-      {
-        jsonDefault: '"test2": ""'
-      }
-    ]
-
-    // Because the update is done on a watch in vue this needs to be async - hence $nextTick
-    expect.assertions(1);
-    //wrapper.vm.fieldsJS = "test2"
-    //I expect it to update the field var for the monaco intellisense
-    wrapper.vm.$nextTick(() => {
-      expect(monaco.addFieldsVar).toBeCalledWith('{"test2": ""}', 'model', '{}');
-    })
-  });
 
   test("When the monaco editor is mounted I expect it to update the field var for the monaco intellisense", () => {
     
@@ -86,7 +49,7 @@ test("When I change the fields json I expect it to update the field var for the 
     })
    
     // When the monaco edior is mounted
-    wrapper.vm.monacoMounted()
+    wrapper.vm.monacoFocus()
 
     expect(monaco.addFieldsVar).toBeCalledWith('{"test": ""}', "modelName", '{"test2": ""}');
   });
