@@ -476,7 +476,9 @@ describe('Editor.vue', () => {
   test('When I paste a field I expect a the field to be inserted', () => {
     // Given a editor, when I paste a field
     const editor = shallow(Editor)
-    
+    editor.vm.$nextTick = function(callback) {
+      callback()
+    }
     editor.vm.formFields =  [
       {
         key: "a"
@@ -496,7 +498,9 @@ describe('Editor.vue', () => {
   test('When I paste a field I expect a the field to be inserted with a new key', () => {
     // Given a editor, when I paste a field
     const editor = shallow(Editor)
-    
+    editor.vm.$nextTick = function(callback) {
+      callback()
+    }
     editor.vm.formFields =  [
       {
         key: "a"
@@ -516,7 +520,9 @@ describe('Editor.vue', () => {
   test('When I paste a field on level 2 I expect a the field to be inserted', () => {
     // Given a editor, when I paste a field
     const editor = shallow(Editor)
-    
+    editor.vm.$nextTick = function(callback) {
+      callback()
+    }
     editor.vm.formFields =  [
       {
         key: "a",
@@ -547,7 +553,9 @@ describe('Editor.vue', () => {
   test('When I paste a field onto a field with sub fields 2 I expect a the field to be inserted in the sub fields list', () => {
     // Given a editor, when I paste a field
     const editor = shallow(Editor)
-    
+    editor.vm.$nextTick = function(callback) {
+      callback()
+    }
     editor.vm.formFields =  [
       {
         key: "a",
@@ -570,5 +578,27 @@ describe('Editor.vue', () => {
     expect(editor.vm.formFields.length).toEqual(2)
     expect(editor.vm.formFields[0].formFields.length).toEqual(2)
     expect(editor.vm.formFields[0].formFields[0].type).toEqual("test")
+  });
+
+  test('When I load a form I expect the submit button to be loaded', () => {
+    // Given a editor, when I load a form
+    const editor = shallow(Editor)
+
+    editor.vm.load('{"submitText":"test"}')
+
+    // I expect the submit button to be populated
+    expect(editor.vm.submitText).toEqual("test")
+  });
+
+  test('When I load a form I expect my fields to be loaded', () => {
+    // Given a editor, when I load a form
+    var editor = shallow(Editor)
+    editor.vm.$nextTick = function(callback) {
+      callback()
+    }
+    editor.vm.load('{"formFields":[{"key":"test"}]}')
+
+    // I expect the submit button to be populated
+    expect(editor.vm.formFields[0].key).toEqual("test")
   });
 })

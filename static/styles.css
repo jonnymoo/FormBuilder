@@ -4,6 +4,10 @@ header {
   color: white;
 }
 
+nav {
+  margin-bottom: 15px;
+}
+
 div#app {
   margin-top: 15px;
 }

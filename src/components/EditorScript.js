@@ -2,13 +2,15 @@ import FieldProperties from '@/components/FieldProperties'
 import FieldsEditor from '@/components/FieldsEditor'
 import FormPreview from '@/components/FormPreview'
 import FieldTypesList, * as FieldTypes from '@/FieldTypes'
+import MonacoEditor from 'vue-monaco'
 
 export default {
   name: 'Editor',
   components: {
     FieldProperties,
     FieldsEditor,
-    FormPreview
+    FormPreview,
+    MonacoEditor
   },
   data () {
     return {
@@ -29,13 +31,21 @@ export default {
       // Clipboard
       clipboard: {
         field: null
-      }
+      },
+      // Temp load function - to be replaced
+      loadJson: null
     }
   },
   computed: {
     fieldsJsonDefault: function () {
       var json = '{' + this.fieldsJson(this.formFields) + '}'
       return json
+    },
+    formJson: function () {
+      return `{
+        "submitText": ${JSON.stringify(this.submitText)},
+        "formFields": ${JSON.stringify(this.formFields)}
+      }`
     }
   },
   methods: {
@@ -52,7 +62,7 @@ export default {
         fields[i].selected = (fields[i].key === key)
 
         // recurse
-        if (fields[i].formFields !== null) {
+        if (fields[i].formFields) {
           this.selectField(key, fields[i].formFields)
         }
       }
@@ -73,7 +83,7 @@ export default {
     // Add a new form field item
     addFormItem: function (fieldType) {
       var i = 0
-      var field = FieldTypes.clone(fieldType)
+      var editor = this
       // Add the field in the current list
       var formFields = this.getCurrentList()
       // No current list?  Use top level
@@ -88,8 +98,11 @@ export default {
         }
       }
 
-      formFields.splice(i + 1, 0, field)
-      this.selectField(field.key)
+      FieldTypes.clone([fieldType], formFields, i + 1, (field, success) => {
+        field.key = FieldTypes.newKey()
+        editor.selectField(field.key)
+        success()
+      }, () => {})
     },
     // Get the form field list that is current (i.e. if a condition or repeated section is selected - then get the sub form fields)
     getCurrentList (fields) {
@@ -159,6 +172,9 @@ export default {
     // Paste the clip board next to the field
     paste: function (field, fields) {
       var i = 0
+      var pasteIndex = 0
+      var pasteDest = null
+      var editor = this
       // Use form fields if list not passed in
       if (fields === undefined) {
         fields = this.formFields
@@ -168,11 +184,22 @@ export default {
           // found it - clone the clipboard
           // if we have children - put it there
           if (fields[i].formFields) {
-            fields[i].formFields.splice(0, 0, FieldTypes.clone(this.clipboard.field))
+            pasteDest = fields[i].formFields
+            pasteIndex = 0
           } else {
             // Stick if after this one
-            fields.splice(i + 1, 0, FieldTypes.clone(this.clipboard.field))
+            pasteDest = fields
+            pasteIndex = i + 1
           }
+
+          FieldTypes.clone([this.clipboard.field], pasteDest, pasteIndex, (field, success) => {
+            field.key = FieldTypes.newKey()
+            editor.selectField(field.key)
+            editor.$nextTick(() => {
+              success()
+            })
+          }, () => {})
+
           return true
         }
         if (fields[i].formFields) {
@@ -205,6 +232,19 @@ export default {
         }
       }
       return false
+    },
+    load: function (jsonData) {
+      var data = JSON.parse(jsonData)
+      this.submitText = data.submitText
+      this.formFields = []
+      var editor = this
+
+      FieldTypes.clone(data.formFields, this.formFields, 0, (field, success) => {
+        editor.selectField(field.key)
+        editor.$nextTick(() => {
+          success()
+        })
+      }, () => {})
     }
   }
 }

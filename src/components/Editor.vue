@@ -1,6 +1,23 @@
 <!-- The main page that contains the whole form builder editor -->
 <template>
 <div class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Form Builder</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+      <div class="form-inline my-2 my-lg-0">
+        <button class="btn btn-outline-success my-2 my-sm-0" v-on:click="load(loadJson)" type="submit">Load</button>
+      </div>
+    </div>
+  </nav>
   <div class="row">
     <div class="col-md-4">
       <ul class="nav nav-tabs" id="editorTab" role="tablist">
@@ -102,6 +119,26 @@
           <FormPreview :editor="this"></FormPreview>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h2>Save Stuff</h2>
+      <textarea cols="80" rows="80" v-model="formJson"></textarea>
+    </div>
+    <div class="col">
+      <h2>Load Stuff</h2>
+      <textarea cols="80" rows="80" v-model="loadJson"></textarea>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <monaco-editor
+        ref="editor"
+        class="invisible"
+        language="javascript"
+        placeholder="Loading please wait">
+      </monaco-editor>
     </div>
   </div>
 </div>

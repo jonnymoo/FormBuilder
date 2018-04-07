@@ -2,7 +2,11 @@ import FieldTypesList, * as FieldTypes from '@/FieldTypes'
 
 describe('Given FieldTypes', () => {
   test('when I clone a new field I expect it be populated with defaults', () => {
-    const fieldType = FieldTypes.clone({})
+    var fieldType = null
+    var ret = []
+    // Clone is an async operation
+    FieldTypes.clone([{}], ret, 0, (field, success) => { success() },  ()=>{ })
+    var fieldType = ret[0]
 
     expect(fieldType.key).toBeDefined()
     expect(fieldType.type).toEqual(null)
@@ -30,7 +34,8 @@ describe('Given FieldTypes', () => {
   });
 
   test('when I clone a new field I from an existing object expect it be populated with copies from the original', () => {
-    const fieldType = FieldTypes.clone({
+    var ret = []
+    FieldTypes.clone([{
       key: 'a',
       type: 'TextInput',
       desc: 'desc',
@@ -54,10 +59,11 @@ describe('Given FieldTypes', () => {
       prepend: 'testPrepend',
       append: 'testAppend'
 
-    })
+    }], ret, 0, (field, success) => { success() }, () => { })
 
+    var fieldType = ret[0]
     expect(fieldType.key).toBeDefined()
-    expect(fieldType.key).not.toEqual('a')
+    expect(fieldType.key).toEqual('a')
     expect(fieldType.type).toEqual("TextInput")
     expect(fieldType.desc).toEqual('desc')
     expect(fieldType.jsonDefault).toEqual('jsonDefault')
@@ -82,7 +88,9 @@ describe('Given FieldTypes', () => {
   });
 
   test('when I clone a TextArea I expect it be populated with its own defaults', () => {
-    const fieldType = FieldTypes.clone({type: "TextArea", desc: '', formFields: null})
+    var ret = []
+    FieldTypes.clone([{type: "TextArea", desc: '', formFields: null}], ret, (field, success) => { success() }, () => { })
+    var fieldType = ret[0]
 
     expect(fieldType.type).toEqual("TextArea")
     expect(fieldType.cols).toEqual(40)
@@ -98,5 +106,15 @@ describe('Given FieldTypes', () => {
     expect(FieldTypesList[1].desc).toEqual("Text Area")
     expect(FieldTypesList[2].type).toEqual("MarkDown")
     expect(FieldTypesList[2].desc).toEqual("MarkDown")
- });
+  });
+
+  test('when I clone new fields at an index I expect copies at the index', () => {
+    var ret = [1,2]
+    FieldTypes.clone([{desc: 'desc1'}, {desc: 'desc2'}], ret, 1, (field, success) => { success() }, () => { })
+
+    expect(ret[0]).toEqual(1)
+    expect(ret[1].desc).toEqual('desc1')
+    expect(ret[2].desc).toEqual('desc2')
+    expect(ret[3]).toEqual(2)
+  });
 })
