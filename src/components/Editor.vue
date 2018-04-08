@@ -6,15 +6,17 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
       </ul>
-      <div class="form-inline my-2 my-lg-0">
-        <button class="btn btn-outline-success my-2 my-sm-0" v-on:click="load(loadJson)" type="submit">Load</button>
+      <div>
+        <input type="file" id="input" v-on:change="handleFiles($event.target.files)">
+      </div>
+      <div>
+        <button class="btn btn-outline-success" v-on:click="download('download.txt')" type="submit">Download</button>
       </div>
     </div>
   </nav>
@@ -121,16 +123,8 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col">
-      <h2>Save Stuff</h2>
-      <textarea cols="80" rows="80" v-model="formJson"></textarea>
-    </div>
-    <div class="col">
-      <h2>Load Stuff</h2>
-      <textarea cols="80" rows="80" v-model="loadJson"></textarea>
-    </div>
-  </div>
+  <!-- A monaco editor needs to have chance to load before we load anything else, otherwise you'll find you load json stuff doesn't initialise all
+       the condition editors properly -->
   <div class="row">
     <div class="col">
       <monaco-editor

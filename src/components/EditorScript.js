@@ -31,9 +31,7 @@ export default {
       // Clipboard
       clipboard: {
         field: null
-      },
-      // Temp load function - to be replaced
-      loadJson: null
+      }
     }
   },
   computed: {
@@ -245,6 +243,35 @@ export default {
           success()
         })
       }, () => {})
+    },
+    /* These need changing to overall load and save */
+    handleFiles: function (files) {
+      var editor = this
+      if (files.length > 0) {
+        var reader = new FileReader()
+        reader.onload = function (evt) {
+          editor.load(evt.target.result)
+        }
+        reader.readAsText(files[0])
+      }
+    },
+    download: function (filename) {
+      var data = JSON.stringify(JSON.parse(this.formJson), undefined, 2)
+      if (window.navigator.msSaveBlob) {
+        var blob = new Blob([data], {type: 'text/plain;charset=utf-8;'})
+        navigator.msSaveBlob(blob, filename)
+      } else {
+        var element = document.createElement('a')
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data))
+        element.setAttribute('download', filename)
+
+        element.style.display = 'none'
+        document.body.appendChild(element)
+
+        element.click()
+
+        document.body.removeChild(element)
+      }
     }
   }
 }
