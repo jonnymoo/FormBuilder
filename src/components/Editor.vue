@@ -13,10 +13,10 @@
         </li>
       </ul>
       <div>
-        <input type="file" id="input" v-on:change="handleFiles($event.target.files)">
+        <input type="file" id="input" v-on:change="load( $event.target.files.length > 0 ? $event.target.files[0] : null)">
       </div>
       <div>
-        <button class="btn btn-outline-success" v-on:click="download('download.txt')" type="submit">Download</button>
+        <button class="btn btn-outline-success" v-on:click="save('download.txt')" type="submit">Download</button>
       </div>
     </div>
   </nav>

@@ -580,25 +580,71 @@ describe('Editor.vue', () => {
     expect(editor.vm.formFields[0].formFields[0].type).toEqual("test")
   });
 
-  test('When I load a form I expect the submit button to be loaded', () => {
-    // Given a editor, when I load a form
+  test('When I populate a form I expect the submit button to be loaded', () => {
+    // Given a editor, when I populate a form
     const editor = shallow(Editor)
 
-    editor.vm.load('{"submitText":"test"}')
+    editor.vm.populate('{"submitText":"test"}')
 
     // I expect the submit button to be populated
     expect(editor.vm.submitText).toEqual("test")
   });
 
-  test('When I load a form I expect my fields to be loaded', () => {
-    // Given a editor, when I load a form
+  test('When I populate a form I expect my fields to be loaded', () => {
+    // Given a editor, when I populate a form
     var editor = shallow(Editor)
     editor.vm.$nextTick = function(callback) {
       callback()
     }
-    editor.vm.load('{"formFields":[{"key":"test"}]}')
+    editor.vm.populate('{"formFields":[{"key":"test"}]}')
 
     // I expect the submit button to be populated
     expect(editor.vm.formFields[0].key).toEqual("test")
+  });
+
+  test('When I save a form I expect the repository to be populated with the form data', () => {
+    // Given a editor, when I save a form
+    var savedUri = null
+    var savedData = null
+    var editor = shallow(Editor, {
+      propsData: {
+        repository: {
+          save: function(uri, data) {
+            savedUri = uri
+            savedData = data
+          }
+        }
+      }
+    })
+
+    editor.vm.save('myUri')
+
+    // I expect the correct data to be saved
+    expect(savedUri).toEqual("myUri")
+    expect(savedData).toContain("\"formFields\": []")
+  });
+
+  test('When I load a form I expect my form to be populated with the loaded form', () => {
+    // Given a editor, when I load a form
+    var loadedUri = null
+    var editor = shallow(Editor, {
+      propsData: {
+        repository: {
+          load: function(uri, callback) {
+            loadedUri = uri
+            callback(`{
+              "submitText": "TestSubmit",
+              "formFields": []
+            }`)
+          }
+        }
+      }
+    })
+
+    editor.vm.load('myUri')
+
+    // I expect the correct data to be populated
+    expect(loadedUri).toEqual("myUri")
+    expect(editor.vm.submitText).toEqual("TestSubmit")
   });
 })
