@@ -9,7 +9,7 @@ module.exports = {
     browser
       .url(devServer)
       .waitForElementVisible('#app', 5000)
-      .assert.containsText('button', 'Text Input')
+      .assert.containsText('button#TextInput', 'Text Input')
       .end()
 
 
